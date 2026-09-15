@@ -3,7 +3,7 @@
     "AllowedHeaders": ["*"],
     "AllowedMethods": ["GET", "HEAD"],
     "AllowedOrigins": [
-      "https://REPLACE-WITH-YOUR-SITE-DOMAIN"
+      "https://paulmartinezt2r.github.io"
     ],
     "ExposeHeaders": [],
     "MaxAgeSeconds": 3000

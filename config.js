@@ -7,15 +7,17 @@ window.COA_CONFIG = {
 
   /* --- Identity -------------------------------------------------- */
 
-  // CHANGE ME: your lab's name. Appears in the header and footer.
-  labName: "Meridian Analytical",
-  labShort: "Meridian",
+  // Appears in the header and footer. Check the capitalisation is how you
+  // write it — "VeriPure" was my guess from the bucket name.
+  labName: "VeriPure Labs",
+  labShort: "VeriPure",
 
   // CHANGE ME
   established: "2023",
   location: "Franklin, Tennessee",
+  // CHANGE ME: still placeholder — send me the real shipping address
   address: [
-    "Meridian Analytical",
+    "VeriPure Labs",
     "133 Example Court, Suite 106",
     "Franklin, TN 37067"
   ],
@@ -34,7 +36,7 @@ window.COA_CONFIG = {
      Same-repo example (PDFs committed next to the site):
        "coas/"
   ----------------------------------------------------------------- */
-  pdfBase: "",
+  pdfBase: "https://veripure-labs.s3.us-east-2.amazonaws.com/coas/",
 
   /* --- How lookups resolve ---------------------------------------
      "index"  — read coa-index.json (enables company-name search and
