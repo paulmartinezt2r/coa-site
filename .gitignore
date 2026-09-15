@@ -1,0 +1,10 @@
+# OS cruft
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# COA PDFs belong in S3, not in git — this guard keeps a stray drag-and-drop
+# from bloating the repo. If you decide to host the PDFs in the repo instead
+# (config.js pdfBase: "coas/"), delete these two lines.
+coas/
+*.pdf

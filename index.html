@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Peptide COA Registry</title>
+<meta name="description" content="Independent HPLC purity and LC-MS identity testing for research-use-only peptides. Look up any certificate of analysis by search code, accession number, or company name.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="masthead" id="masthead">
+
+  <!-- Tier 1 — credentials and live status. Collapses once you scroll. -->
+  <div class="utility">
+    <div class="wrap utility-inner">
+      <div class="utility-side">
+        <span>Independent third-party laboratory</span>
+        <span class="utility-sep" aria-hidden="true"></span>
+        <span class="utility-dim" data-cfg="location">Franklin, Tennessee</span>
+      </div>
+      <div class="utility-side">
+        <span class="utility-dim utility-drop">Results in
+          <span data-cfg="figures.turnaround">4–6</span> business days</span>
+        <span class="utility-sep utility-drop" aria-hidden="true"></span>
+        <span class="utility-live">
+          <i class="dot" id="index-dot" aria-hidden="true"></i>
+          <span id="index-status-text">Index loading</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tier 2 — identity, navigation, primary action -->
+  <div class="bar">
+    <div class="wrap bar-inner">
+
+      <a class="wordmark" href="#top">
+        <span class="wordmark-plate">
+          <!-- Detector peak mark -->
+          <svg width="20" height="20" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+            <path d="M1 17.5h3.2l1.6-3.1 1.5 3.1h1.4l1.9-13 2.1 13h1.3l1.5-4.2 1.4 4.2H21"
+                  stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="wordmark-lines">
+          <span class="wordmark-text" data-cfg="labName">Meridian Analytical</span>
+          <span class="wordmark-sub">COA Registry</span>
+        </span>
+      </a>
+
+      <div class="bar-right">
+        <nav class="nav" id="nav" aria-label="Sections">
+          <a href="#top">Lookup</a>
+          <a href="#methods">Methods</a>
+          <a href="#process">Process</a>
+          <a href="#submit">Submit</a>
+        </nav>
+
+        <span class="bar-div" aria-hidden="true"></span>
+
+        <a class="btn btn-primary btn-sm bar-cta" href="#submit">Submit samples</a>
+
+        <button class="nav-toggle" id="nav-toggle" type="button"
+                aria-expanded="false" aria-controls="nav" aria-label="Open navigation">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================ -->
+<!-- Hero: the lookup is the hero, because retrieval is the job    -->
+<!-- ============================================================ -->
+
+<section class="hero" id="top">
+  <div class="wrap hero-inner">
+
+    <div class="hero-copy">
+      <p class="eyebrow">Independent analysis · HPLC + LC-MS</p>
+      <h1>Every certificate we issue is <em>publicly verifiable</em>.</h1>
+      <p class="lede">
+        Third-party purity and identity testing for research-use-only peptides.
+        Results in <span class="mono" data-cfg="figures.turnaround">4–6</span> business days — and
+        every report retrievable here, by anyone holding the code.
+      </p>
+      <div class="hero-facts">
+        <span class="chip">Est. <span data-cfg="established">2023</span> · <span data-cfg="location">Franklin, Tennessee</span></span>
+        <span class="chip">No vendor affiliations</span>
+        <span class="chip">Purity + identity on every report</span>
+      </div>
+
+      <!-- Lookup instrument -->
+      <form class="panel lookup" id="lookup-form" autocomplete="off">
+        <div class="panel-bar">
+          <span>COA Lookup</span>
+          <span class="panel-bar-live" id="index-count">Index · loading</span>
+        </div>
+
+        <div class="lookup-body">
+          <div class="segmented" role="tablist" aria-label="Search by">
+            <button type="button" role="tab" data-mode="code" aria-selected="true">Search code / Accession</button>
+            <button type="button" role="tab" data-mode="company" aria-selected="false">Company name</button>
+          </div>
+
+          <div class="field">
+            <input id="q" type="text" inputmode="text" spellcheck="false"
+                   placeholder="ABCD2603170030"
+                   aria-label="Search code or accession number">
+            <button class="btn btn-primary" type="button" id="lookup-btn">Look up</button>
+          </div>
+
+          <p class="hint">Codes are not case-sensitive. Spaces and dashes are ignored.</p>
+
+          <details class="disclose">
+            <summary>Where is my search code?</summary>
+            <div class="disclose-body">
+              <ol class="steps-inline">
+                <li>Open your Certificate of Analysis PDF.</li>
+                <li>Find the field labelled <code>Search Code</code> in the table at the top right.</li>
+                <li>Enter it below. It is the first four characters of your company name followed by the accession number.</li>
+              </ol>
+              <div class="anatomy">
+                <p class="eyebrow" style="margin-bottom:10px">Anatomy of a search code</p>
+                <div class="anatomy-code">
+                  <span class="anatomy-part">
+                    <b>ABCD</b>
+                    <i>First 4 characters<br>of company name</i>
+                  </span>
+                  <span class="anatomy-part">
+                    <b>2603170030</b>
+                    <i>Accession number<br>from your report</i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </details>
+        </div>
+      </form>
+    </div>
+
+    <!-- Instrument panel -->
+    <div class="panel">
+      <div class="panel-bar">
+        <span>Detector output</span>
+        <span>Representative · UV 214 nm</span>
+      </div>
+      <div class="trace-holder">
+        <canvas id="hero-trace" class="trace"
+                aria-label="Representative HPLC chromatogram: main peak at 6.42 minutes, 99.14 percent of integrated area, with four minor impurity peaks."></canvas>
+      </div>
+      <dl class="readout">
+        <div><dt>Detection</dt><dd data-cfg="method.detection">UV 214 nm · ESI(+) MS</dd></div>
+        <div><dt>Column</dt><dd data-cfg="method.column">C18, 2.6 µm, 100 × 4.6 mm</dd></div>
+        <div><dt>Mobile phase</dt><dd data-cfg="method.mobilePhase">0.1% TFA in H₂O / ACN, gradient</dd></div>
+        <div><dt>Flow / temp</dt><dd data-cfg="method.flow">1.0 mL/min, 30 °C</dd></div>
+      </dl>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- Result                                                        -->
+<!-- ============================================================ -->
+
+<section class="band result-band" id="result">
+  <div class="wrap band-inner">
+    <div class="result-head">
+      <p class="eyebrow eyebrow-signal">Retrieved certificate</p>
+      <p class="hint">Every field below is taken from the signed report. The PDF is the record of authority.</p>
+    </div>
+    <div id="result-out"></div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- Methods                                                       -->
+<!-- ============================================================ -->
+
+<section class="band" id="methods">
+  <div class="wrap band-inner">
+    <p class="eyebrow">Analysis</p>
+    <h2 style="font-size:clamp(25px,3.6vw,36px);max-width:22ch;margin-top:14px">
+      Two measurements on every certificate.
+    </h2>
+    <p class="lede" style="margin-top:14px">
+      A purity figure with no identity confirmation answers half the question: it says the
+      sample is clean, not that it is the compound on the label. We never issue one without
+      the other.
+    </p>
+
+    <div class="two-col">
+      <div class="panel method-card">
+        <p class="eyebrow eyebrow-signal">Measurement 01</p>
+        <h3>HPLC-UV — purity</h3>
+        <p>
+          Reversed-phase separation with ultraviolet detection at 214 nm, the wavelength at
+          which the peptide bond absorbs. Purity is reported as area percent of the total
+          integrated signal, to two decimal places.
+        </p>
+        <dl class="spec">
+          <div class="spec-row"><dt>Column</dt><dd>C18, 2.6 µm, 100 × 4.6 mm</dd></div>
+          <div class="spec-row"><dt>Mobile phase</dt><dd>A: 0.1% TFA / H₂O — B: ACN</dd></div>
+          <div class="spec-row"><dt>Gradient</dt><dd>5 → 65% B over 20 min</dd></div>
+          <div class="spec-row"><dt>Flow / temp</dt><dd>1.0 mL/min, 30 °C</dd></div>
+          <div class="spec-row"><dt>Detection</dt><dd>UV 214 nm</dd></div>
+          <div class="spec-row"><dt>Reported as</dt><dd>Area %, 2 dp</dd></div>
+        </dl>
+      </div>
+
+      <div class="panel method-card">
+        <p class="eyebrow eyebrow-signal">Measurement 02</p>
+        <h3>LC-MS — identity</h3>
+        <p>
+          Electrospray ionisation in positive mode. The observed mass-to-charge ratio is
+          matched against the theoretical mass of the named sequence, including the multiply
+          charged states expected from larger peptides.
+        </p>
+        <dl class="spec">
+          <div class="spec-row"><dt>Ionisation</dt><dd>ESI, positive mode</dd></div>
+          <div class="spec-row"><dt>Scan range</dt><dd>m/z 200 – 3000</dd></div>
+          <div class="spec-row"><dt>Confirmation</dt><dd>Observed vs. theoretical mass</dd></div>
+          <div class="spec-row"><dt>Charge states</dt><dd>[M+H]⁺, [M+2H]²⁺, [M+3H]³⁺</dd></div>
+          <div class="spec-row"><dt>Tolerance</dt><dd>± 0.5 Da</dd></div>
+          <div class="spec-row"><dt>Reported as</dt><dd>Confirmed / Not confirmed</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- Process — a real sequence, so the numbering carries meaning   -->
+<!-- ============================================================ -->
+
+<section class="band" id="process">
+  <div class="wrap band-inner">
+    <p class="eyebrow">From vial to public record</p>
+    <h2 style="font-size:clamp(25px,3.6vw,36px);max-width:24ch;margin-top:14px">
+      Four steps, one of which is out of our hands.
+    </h2>
+
+    <div class="process">
+      <div class="step">
+        <span class="step-n">Step 01</span>
+        <h4>Sample received</h4>
+        <p>Ship the vial with a completed submission form. We log it, assign an accession
+           number, and confirm receipt by email the same day.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Step 02</span>
+        <h4>Analysis</h4>
+        <p>Purity and identity are run from the same vial, under the method above. No
+           sub-contracting, no second laboratory.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Step 03</span>
+        <h4>Analyst review</h4>
+        <p>Peak integration and the mass match are reviewed by an analyst before anything
+           is released. Borderline integrations get re-run.</p>
+      </div>
+      <div class="step">
+        <span class="step-n">Step 04</span>
+        <h4>Report issued</h4>
+        <p>The signed certificate is emailed to you and filed to this public index, where
+           your own customers can verify it independently.</p>
+      </div>
+    </div>
+
+    <p class="hint mono" style="margin-top:14px">
+      Typical turnaround: <span data-cfg="figures.turnaround">4–6</span> business days from receipt.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- The public record                                             -->
+<!-- ============================================================ -->
+
+<section class="band">
+  <div class="wrap band-inner">
+    <p class="eyebrow">The public record</p>
+    <h2 style="font-size:clamp(25px,3.6vw,36px);max-width:26ch;margin-top:14px">
+      Nothing here has to be taken on trust.
+    </h2>
+    <p class="lede" style="margin-top:14px">
+      Certificates are public by default. A vendor can cite a batch; their customer can pull
+      the same report from this page and read the chromatogram themselves.
+    </p>
+
+    <div class="figures">
+      <div class="figure">
+        <b id="fig-certificates" data-cfg="figures.certificates">—</b>
+        <span>Certificates in the public index</span>
+      </div>
+      <div class="figure">
+        <b data-cfg="figures.turnaround">4–6</b>
+        <span>Business days, typical turnaround</span>
+      </div>
+      <div class="figure">
+        <b style="font-size:clamp(17px,2.4vw,22px)" data-cfg="figures.methodsPerCoa">HPLC + LC-MS</b>
+        <span>On every certificate, without exception</span>
+      </div>
+      <div class="figure">
+        <b data-cfg="established">2023</b>
+        <span>Independently operating since</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- Submit                                                        -->
+<!-- ============================================================ -->
+
+<section class="band" id="submit">
+  <div class="wrap band-inner submit-grid">
+    <div style="display:grid;gap:16px;align-content:start">
+      <p class="eyebrow">Submit samples</p>
+      <h2 style="font-size:clamp(23px,3.2vw,32px);max-width:20ch">
+        Send a vial. Get a certificate your customers can check.
+      </h2>
+      <p class="lede">
+        Include a completed submission form with each sample so we can match it to your
+        company and assign the accession number correctly. Sample requirement is 2 mg minimum,
+        shipped at ambient temperature unless the compound requires otherwise.
+      </p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px">
+        <a class="btn btn-primary" href="#" id="form-link">Submission form (PDF)</a>
+        <a class="btn btn-ghost" href="#" id="mailto">Email the lab</a>
+      </div>
+    </div>
+
+    <div class="panel" style="padding:20px">
+      <p class="eyebrow">Shipping address</p>
+      <address class="addr" id="address" style="margin-top:10px">
+        Meridian Analytical<br>133 Example Court, Suite 106<br>Franklin, TN 37067
+      </address>
+      <div class="contact-list">
+        <div class="contact-row"><span>Results</span><a href="#" id="mailto2" data-cfg="email">results@example-lab.com</a></div>
+        <div class="contact-row"><span>Turnaround</span><span style="color:var(--ink);text-transform:none;letter-spacing:0;font-size:12.5px"><span data-cfg="figures.turnaround">4–6</span> business days</span></div>
+        <div class="contact-row"><span>Sample minimum</span><span style="color:var(--ink);text-transform:none;letter-spacing:0;font-size:12.5px">2 mg</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- Footer                                                        -->
+<!-- ============================================================ -->
+
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <div class="foot-quality" id="quality">
+      <span class="chip">Quality management aligned to ISO 9001 principles</span>
+      <span class="chip">Good Laboratory Practice (GLP) principles</span>
+    </div>
+    <p class="disclaimer">
+      All testing and all reports published here are for research use only. Materials
+      submitted for analysis are not for human or animal consumption and not for clinical,
+      diagnostic, or therapeutic use. A certificate of analysis describes the sample as
+      received by the laboratory; it is not an endorsement of the supplier and makes no
+      claim about any other batch. Results describe only the vial tested. Submitters are
+      responsible for compliance with applicable local, state, and federal regulations.
+    </p>
+    <div class="foot-base">
+      <span>© <span id="year">2026</span> <span data-cfg="labName">Meridian Analytical</span> · <span data-cfg="location">Franklin, Tennessee</span></span>
+      <span>Research use only</span>
+    </div>
+  </div>
+</footer>
+
+<script src="config.js"></script>
+<script src="assets/app.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+  var m2 = document.getElementById("mailto2");
+  if (m2 && window.COA_CONFIG && window.COA_CONFIG.email) {
+    m2.href = "mailto:" + window.COA_CONFIG.email;
+  }
+</script>
+
+</body>
+</html>
