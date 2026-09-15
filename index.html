@@ -8,7 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/styles.css">
+<!-- ?v= is a cache buster: bump it whenever styles.css, app.js or config.js
+     changes, or returning visitors keep the stale copy for up to 10 minutes -->
+<link rel="stylesheet" href="assets/styles.css?v=2">
 </head>
 <body>
 
@@ -377,8 +379,8 @@
   </div>
 </footer>
 
-<script src="config.js"></script>
-<script src="assets/app.js"></script>
+<script src="config.js?v=2"></script>
+<script src="assets/app.js?v=2"></script>
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
   var m2 = document.getElementById("mailto2");

@@ -178,6 +178,30 @@ when it does not.
 - [ ] Footer disclaimer — have someone confirm the research-use-only wording matches
       how you actually operate
 
+## After you change CSS or JS: bump the cache buster
+
+GitHub Pages serves assets with a 10-minute cache, so returning visitors can
+keep a stale copy of the styling or the lookup logic after a push. The asset
+tags in `index.html` carry a version:
+
+```html
+<link rel="stylesheet" href="assets/styles.css?v=2">
+<script src="config.js?v=2"></script>
+<script src="assets/app.js?v=2"></script>
+```
+
+Increment all three to the same number whenever you edit `styles.css`,
+`app.js`, or `config.js`. The number itself is arbitrary — changing it is what
+forces a fresh download.
+
+`coa-index.json` does **not** need this. It is fetched with `cache: "no-cache"`,
+so the browser revalidates it with the server every time — a certificate you
+add today is findable today, not ten minutes from now.
+
+If you are testing your own change and see the old version, hard-refresh with
+**Ctrl+Shift+R** (or use an incognito window) rather than bumping the version
+for every experiment.
+
 ## Nice to know
 
 - **Deep links.** `?coa=ABCD2603170030` opens the page with that certificate already
