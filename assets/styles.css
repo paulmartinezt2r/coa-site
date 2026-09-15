@@ -447,8 +447,10 @@ a { color: inherit; }
   .wordmark-text { font-size: 14px; }
 }
 
-/* Anchored sections must clear the sticky header */
-section[id] { scroll-margin-top: 78px; }
+/* Anchored sections must clear the sticky header. The hero is excluded: it
+   already sits at the top of the document, and an offset there would park
+   the scroll position inside the header's own collapse range. */
+section[id]:not(.hero) { scroll-margin-top: 78px; }
 
 /* ------------------------------------------------------------------
    Hero

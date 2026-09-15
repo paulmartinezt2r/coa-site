@@ -561,11 +561,37 @@
     var nav = $("#nav");
     if (!head || !nav) return;
 
+    /* Collapsing the utility strip removes ~32px of document height, which
+       moves the scroll position. With a single threshold, any rest position
+       near it oscillates forever: collapse shortens the page, scrollY drops
+       back under the threshold, the strip re-expands, and round it goes.
+       So the on and off thresholds are set further apart than the height
+       the strip occupies. */
+    var stuck = false;
     var onScroll = function () {
-      head.classList.toggle("is-stuck", window.scrollY > 24);
+      var y = window.scrollY || window.pageYOffset || 0;
+      if (!stuck && y > 96) {
+        stuck = true;
+        head.classList.add("is-stuck");
+      } else if (stuck && y < 48) {
+        stuck = false;
+        head.classList.remove("is-stuck");
+      }
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
+
+    /* The wordmark means "back to the top of the page", not "jump to the
+       hero's anchor offset" — which would land inside the band above. */
+    var mark = document.querySelector(".wordmark");
+    if (mark) {
+      mark.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        var smooth = !(window.matchMedia &&
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+        window.scrollTo({ top: 0, behavior: smooth ? "smooth" : "auto" });
+      });
+    }
 
     var closePanel = function () {
       nav.classList.remove("is-open");
