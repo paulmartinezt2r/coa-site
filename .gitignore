@@ -8,3 +8,6 @@ desktop.ini
 # (config.js pdfBase: "coas/"), delete these two lines.
 coas/
 *.pdf
+
+# ...except the blank submission form, which ships with the site
+!assets/forms/*.pdf

@@ -13,7 +13,6 @@ window.COA_CONFIG = {
   labShort: "VeriPure",
 
   // CHANGE ME
-  established: "2023",
   location: "Plantation, Florida",
   address: [
     "VeriPure Labs",
@@ -50,11 +49,9 @@ window.COA_CONFIG = {
   indexUrl: "coa-index.json",
 
   /* --- Public record figures --------------------------------------
-     CHANGE ME: only publish numbers you can stand behind. Set any
-     value to null to hide that tile.
+     Only publish figures you can stand behind.
   ----------------------------------------------------------------- */
   figures: {
-    certificates: null,      // e.g. 12480 — leave null to show the live index count instead
     turnaround: "4–6",       // business days
     methodsPerCoa: "HPLC + LC-MS"
   },

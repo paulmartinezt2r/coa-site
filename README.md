@@ -164,17 +164,17 @@ when it does not.
 
 ## Before you go live
 
-- [ ] `config.js` — lab name, address, email, location, established year
+- [x] `config.js` — lab name, address, email, location
 - [ ] `config.js` — `pdfBase` pointing at your bucket
-- [ ] `config.js` — `figures`: publish only numbers you can stand behind. Leave
-      `certificates: null` and the tile shows the live count from the index instead.
+- [x] `config.js` — `figures`: publish only numbers you can stand behind. The
+      certificate count is deliberately not shown anywhere on the page.
 - [ ] `config.js` — `quality`: **state only what you actually hold.** "Aligned to
       ISO 9001 principles" and "accredited to ISO 9001" are very different claims,
       and the second one needs a certificate number behind it.
 - [x] `coa-index.json` — example records removed. If you ever add demo data
       again, flag it `"example": true`: it renders with a red *Example record*
       pill, and `-DropExamples` strips it on the next index rebuild.
-- [ ] `index.html` — point `#form-link` at your submission form PDF
+- [x] `index.html` — `#form-link` points at `assets/forms/VeriPure-Sample-Submission-Form.pdf`
 - [ ] Footer disclaimer — have someone confirm the research-use-only wording matches
       how you actually operate
 
@@ -219,3 +219,17 @@ for every experiment.
 - **Themes.** The page follows the visitor's light/dark preference.
 - **No testimonials section.** Deliberately left out rather than filled with
   placeholder quotes — drop in real ones when you have them.
+
+## Updating the submission form
+
+The PDF at `assets/forms/VeriPure-Sample-Submission-Form.pdf` is printed from
+`tools/submission-form.html`. Edit the HTML (address, tests, wording), then
+regenerate from PowerShell in the repo root:
+
+```powershell
+$in = "file:///" + ((Resolve-Path tools\submission-form.html).Path -replace '\','/')
+& "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --headless=new --disable-gpu --no-pdf-header-footer --print-to-pdf="$PWD\assets\forms\VeriPure-Sample-Submission-Form.pdf" $in
+```
+
+Check it is still one page, bump `Rev.` in the form footer if the content changed,
+and commit both files.

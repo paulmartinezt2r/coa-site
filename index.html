@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap">
 <!-- ?v= is a cache buster: bump it whenever styles.css, app.js or config.js
      changes, or returning visitors keep the stale copy for up to 10 minutes -->
-<link rel="stylesheet" href="assets/styles.css?v=7">
+<link rel="stylesheet" href="assets/styles.css?v=8">
 </head>
 <body>
 
@@ -93,7 +93,7 @@
         every report retrievable here, by anyone holding the code.
       </p>
       <div class="hero-facts">
-        <span class="chip">Est. <span data-cfg="established">2023</span> · <span data-cfg="location">Plantation, Florida</span></span>
+        <span class="chip" data-cfg="location">Plantation, Florida</span>
         <span class="chip">No vendor affiliations</span>
         <span class="chip">Purity + identity on every report</span>
       </div>
@@ -303,20 +303,12 @@
 
     <div class="figures">
       <div class="figure">
-        <b id="fig-certificates" data-cfg="figures.certificates">—</b>
-        <span>Certificates in the public index</span>
-      </div>
-      <div class="figure">
         <b data-cfg="figures.turnaround">4–6</b>
         <span>Business days, typical turnaround</span>
       </div>
       <div class="figure">
         <b style="font-size:clamp(17px,2.4vw,22px)" data-cfg="figures.methodsPerCoa">HPLC + LC-MS</b>
         <span>On every certificate, without exception</span>
-      </div>
-      <div class="figure">
-        <b data-cfg="established">2023</b>
-        <span>Independently operating since</span>
       </div>
     </div>
   </div>
@@ -339,7 +331,7 @@
         shipped at ambient temperature unless the compound requires otherwise.
       </p>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px">
-        <a class="btn btn-primary" href="#" id="form-link">Submission form (PDF)</a>
+        <a class="btn btn-primary" href="assets/forms/VeriPure-Sample-Submission-Form.pdf" id="form-link" target="_blank" rel="noopener">Submission form (PDF)</a>
         <a class="btn btn-ghost" href="#" id="mailto">Email the lab</a>
       </div>
     </div>
@@ -383,8 +375,8 @@
   </div>
 </footer>
 
-<script src="config.js?v=7"></script>
-<script src="assets/app.js?v=7"></script>
+<script src="config.js?v=8"></script>
+<script src="assets/app.js?v=8"></script>
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
   var m2 = document.getElementById("mailto2");

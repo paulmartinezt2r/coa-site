@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>VeriPure Labs — Sample Submission Form</title>
+<style>
+  /* Mirrors the VeriPure certificate of analysis: navy title, blue lab name,
+     grey section bars with a blue edge, blue table headers, italic labels. */
+  @page { size: Letter; margin: 0.36in 0.5in 0.32in; }
+  :root {
+    --navy: #1C3553; --blue: #2E67AE; --bar: #EDF1F5; --rule: #C9D3DD;
+    --field: #F7F9FB; --ink: #1E2530; --muted: #5E6B7A; --ok: #2F7D4F;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { font-family: Arial, Helvetica, sans-serif; color: var(--ink); font-size: 8.6pt; line-height: 1.3; }
+
+  header { text-align: center; padding-bottom: 4pt; border-bottom: 2pt solid var(--navy); }
+  h1 { margin: 0; font-size: 17pt; font-style: italic; font-weight: 700; color: var(--navy); letter-spacing: .01em; }
+  .lab { margin: 1pt 0 1pt; font-size: 11.5pt; font-style: italic; font-weight: 700; color: var(--blue); }
+  .contact { font-size: 7.8pt; font-style: italic; font-weight: 700; color: var(--muted); }
+
+  .instr { display: flex; justify-content: space-between; gap: 12pt; margin: 3pt 0 0;
+           font-size: 7.6pt; font-style: italic; color: var(--muted); }
+
+  section { margin-top: 6pt; }
+  h2 { margin: 0 0 4pt; padding: 2.5pt 7pt; background: var(--bar); border-left: 3pt solid var(--blue);
+       font-size: 8.4pt; font-style: italic; font-weight: 700; letter-spacing: .02em; color: var(--navy);
+       text-transform: uppercase; }
+
+  /* Fill-in fields */
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4pt 8pt; }
+  .grid.g3 { grid-template-columns: 2fr 1fr; }
+  .full { grid-column: 1 / -1; }
+  .f { position: relative; height: 24pt; background: var(--field); border: .75pt solid var(--rule); border-radius: 1.5pt; padding: 2pt 5pt 0; }
+  .f label { display: block; font-size: 6.8pt; font-style: italic; font-weight: 700; color: var(--muted); line-height: 1.1; }
+  .f label em { font-weight: 400; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th { background: var(--blue); color: #fff; font-size: 7.6pt; font-style: italic; font-weight: 700;
+       text-align: left; padding: 2.5pt 5pt; border: .75pt solid var(--blue); }
+  td { border: .75pt solid var(--rule); padding: 0 5pt; font-size: 8.2pt; }
+  .samples td { height: 17pt; }
+  .samples td.n { width: 18pt; text-align: center; font-style: italic; font-weight: 700; color: var(--muted); background: var(--bar); }
+  .note { margin-top: 3pt; font-size: 7.3pt; font-style: italic; color: var(--muted); }
+
+  .tests td { height: 13.5pt; font-style: italic; }
+  .tests td.c { width: 20pt; text-align: center; }
+  .tests td.code { width: 22pt; text-align: center; font-weight: 700; color: var(--blue); font-style: normal; }
+  .tests tr.std td { background: #F4F8F5; }
+  .tests .p { font-weight: 700; }
+  .tests .std-tag { color: var(--ok); font-weight: 700; }
+
+  /* Hand-drawn check boxes, so no glyph depends on an installed font */
+  .cb { display: inline-block; width: 8.5pt; height: 8.5pt; border: .9pt solid #6B7888; border-radius: 1pt;
+        vertical-align: -1.5pt; position: relative; background: #fff; }
+  .cb.on { background: var(--ok); border-color: var(--ok); }
+  .cb.on::after { content: ""; position: absolute; left: 2.4pt; top: .6pt; width: 2.3pt; height: 4.6pt;
+                  border: solid #fff; border-width: 0 1.2pt 1.2pt 0; transform: rotate(45deg); }
+
+  .opts { display: grid; grid-template-columns: 1fr 1.25fr; gap: 14pt; }
+  .opt { display: flex; gap: 6pt; align-items: flex-start; }
+  .opt .cb { flex: none; margin-top: 1pt; }
+  .opt small { display: block; font-size: 7.3pt; font-style: italic; color: var(--muted); }
+
+  .two { display: grid; grid-template-columns: 1fr 1.08fr; gap: 12pt; }
+  .ship-to { border: .75pt solid var(--rule); border-left: 3pt solid var(--navy); padding: 3pt 8pt; background: var(--field); }
+  .ship-to b { display: block; font-size: 7.3pt; font-style: italic; color: var(--muted); margin-bottom: 1pt; }
+  .ship-to span { font-size: 9pt; font-weight: 700; font-style: italic; color: var(--navy); line-height: 1.35; }
+  ul { margin: 4pt 0 0; padding-left: 11pt; font-size: 8pt; }
+  li { margin: 0 0 1.2pt; }
+  li b { color: var(--navy); }
+
+  .ack { font-size: 7.8pt; font-style: italic; margin: 0; }
+  .sig { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3pt 10pt; margin-top: 4pt; }
+  .sig .line { border-bottom: .9pt solid #6B7888; height: 16pt; }
+  .sig label { font-size: 7pt; font-style: italic; font-weight: 700; color: var(--muted); }
+
+  .lab-use { margin-top: 6pt; border: 1pt dashed #8A97A6; padding: 4pt 8pt 5pt; background: #FAFBFC; }
+  .lab-use h3 { display: flex; justify-content: space-between; margin: 0 0 4pt; font-size: 7.6pt; font-style: italic; letter-spacing: .08em; color: var(--muted); text-transform: uppercase; }
+  .lab-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4pt 8pt; }
+  .lab-grid .f { height: 21pt; background: #fff; }
+  .cond { grid-column: 1 / -1; font-size: 7.5pt; font-style: italic; font-weight: 700; color: var(--muted); display: flex; gap: 12pt; align-items: center; }
+
+  footer { margin-top: 5pt; padding-top: 3pt; border-top: .75pt solid var(--rule); text-align: center;
+           font-size: 7pt; font-style: italic; font-weight: 700; color: var(--muted); }
+  footer .form-id { display: block; font-weight: 400; margin-top: 1pt; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>SAMPLE SUBMISSION FORM</h1>
+  <div class="lab">VeriPure Labs</div>
+  <div class="contact">Independent Third-Party Analytical Testing | Email: RESULTS@VERIPURELABS.COM | Web: WWW.VERIPURELABS.COM</div>
+</header>
+<div class="instr">
+  <span>Complete in block capitals, or type directly into this PDF before printing.</span>
+  <span>Place one completed form inside each shipment.</span>
+</div>
+
+<section>
+  <h2>Client Information</h2>
+  <div class="grid g3">
+    <div class="f"><label>Company Name <em>— exactly as it should appear on the certificate</em></label></div>
+    <div class="f"><label>Date Shipped</label></div>
+    <div class="f"><label>Contact Name</label></div>
+    <div class="f"><label>Phone</label></div>
+    <div class="f"><label>Email for Results <em>— certificates are delivered to this address</em></label></div>
+    <div class="f"><label>USPS Tracking Number</label></div>
+  </div>
+</section>
+
+<section>
+  <h2>Sample Information</h2>
+  <table class="samples">
+    <thead><tr>
+      <th style="width:18pt">#</th><th style="width:31%">Sample Name / Compound</th><th style="width:13%">Labeled Amount</th>
+      <th style="width:19%">Lot / Batch</th><th style="width:15%">Sample Type</th><th>Optional Tests <span style="font-weight:400">(A–D)</span></th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="n">1</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="n">2</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="n">3</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="n">4</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="n">5</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="n">6</td><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+  <div class="note">Each sample receives its own Certificate of Analysis and report number. Example row: Retatrutide · 10mg · RT10-092523-01 · Lyophilized powder · A, B</div>
+</section>
+
+<section>
+  <h2>Tests Requested</h2>
+  <table class="tests">
+    <thead><tr><th style="width:22pt">Code</th><th style="width:20pt"></th><th style="width:34%">Test Parameter</th><th>Method / Specification</th><th style="width:21%">Notes</th></tr></thead>
+    <tbody>
+      <tr class="std"><td class="code">—</td><td class="c"><span class="cb on"></span></td><td class="p">Identity · Purity · Appearance</td><td>LC-MS ESI(+) · RP-HPLC-UV 214 nm · Visual</td><td class="std-tag">Standard on every sample</td></tr>
+      <tr><td class="code">A</td><td class="c"><span class="cb"></span></td><td class="p">Peptide Content</td><td>Elemental Analysis</td><td></td></tr>
+      <tr><td class="code">B</td><td class="c"><span class="cb"></span></td><td class="p">Water Content</td><td>Karl Fischer Titration</td><td></td></tr>
+      <tr><td class="code">C</td><td class="c"><span class="cb"></span></td><td class="p">Residual Solvents</td><td>GC-HS (USP &lt;467&gt;)</td><td></td></tr>
+      <tr><td class="code">D</td><td class="c"><span class="cb"></span></td><td class="p">Bacterial Endotoxins</td><td>LAL Kinetic Chromogenic</td><td></td></tr>
+    </tbody>
+  </table>
+  <div class="note">Tick an optional test to request it for every sample, or enter its letter against individual samples in the table above.</div>
+</section>
+
+<section>
+  <h2>Certificate Options</h2>
+  <div class="opts">
+    <div class="opt"><span class="cb"></span><div>Include a photo of the submitted vial on the certificate.</div></div>
+    <div class="opt"><span class="cb"></span><div>I understand every certificate is published to the public COA registry.
+      <small>Retrievable by anyone using the report number, task number, or company name.</small></div></div>
+  </div>
+</section>
+
+<section class="two">
+  <div>
+    <h2>Shipping</h2>
+    <div class="ship-to">
+      <b>Ship samples to</b>
+      <span>VeriPure Labs<br>PO Box 16094<br>Plantation, FL 33318</span>
+    </div>
+    <ul>
+      <li><b>Ship via USPS.</b> UPS and FedEx cannot deliver to PO boxes.</li>
+      <li>Minimum <b>2 mg</b> per sample, each vial sealed and labeled to match its row. Ambient temperature unless cold transport is required.</li>
+      <li>Typical turnaround: <b>4–6 business days</b> from receipt.</li>
+    </ul>
+  </div>
+  <div>
+    <h2>Acknowledgment</h2>
+    <p class="ack">I confirm the samples listed on this form are submitted for research use only and are not for human or animal consumption, or for clinical, diagnostic, or therapeutic use. I understand that results describe only the samples as received by the laboratory.</p>
+    <div class="sig">
+      <div><div class="line"></div><label>Authorized Signature</label></div>
+      <div><div class="line"></div><label>Date</label></div>
+      <div style="grid-column:1/-1"><div class="line"></div><label>Printed Name</label></div>
+    </div>
+  </div>
+</section>
+
+<div class="lab-use">
+  <h3><span>For Laboratory Use Only</span><span style="letter-spacing:0;text-transform:none;font-weight:400">Form VPL-SSF · Rev. 09/2026</span></h3>
+  <div class="lab-grid">
+    <div class="f"><label>Task No.</label></div>
+    <div class="f"><label>Report No(s).</label></div>
+    <div class="f"><label>Date Received</label></div>
+    <div class="f"><label>Received By</label></div>
+    <div class="cond">Condition on arrival:
+      <span><span class="cb"></span> Intact</span><span><span class="cb"></span> Damaged</span><span><span class="cb"></span> Leaking / unsealed</span><span><span class="cb"></span> Label mismatch</span>
+    </div>
+  </div>
+</div>
+
+<footer>
+  VeriPure Labs is aligned with ISO 9001 and Good Laboratory Practice (GLP) principles. All testing and reports issued are strictly for research use only.
+</footer>
+
+</body>
+</html>

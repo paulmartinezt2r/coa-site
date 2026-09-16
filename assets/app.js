@@ -555,8 +555,9 @@
     }
   }
 
-  /* Live index readout in the masthead strip and the lookup panel bar.
-     n === null means the index did not load, so lookups go direct. */
+  /* Live index readout in the masthead strip and the lookup panel bar. It
+     reports whether the registry is reachable, never how many certificates it
+     holds. n === null means the index did not load, so lookups go direct. */
   function setIndexStatus(n) {
     var dot = $("#index-dot");
     var text = $("#index-status-text");
@@ -572,14 +573,8 @@
       return;
     }
 
-    if (text) {
-      text.textContent = n.toLocaleString() +
-        (n === 1 ? " certificate live" : " certificates live");
-    }
-    if (panel) {
-      panel.textContent = "Index · " + n.toLocaleString() +
-        (n === 1 ? " record" : " records");
-    }
+    if (text) text.textContent = "Registry online";
+    if (panel) panel.textContent = "Public index";
   }
 
   /* Two-tier masthead: condenses on scroll, tracks the section you are in,
@@ -733,8 +728,6 @@
           INDEX = json;
           var n = json.records.length;
           setIndexStatus(n);
-          var fig = $("#fig-certificates");
-          if (fig && !(CFG.figures || {}).certificates) fig.textContent = n.toLocaleString();
         } else {
           setIndexStatus(null);
         }
