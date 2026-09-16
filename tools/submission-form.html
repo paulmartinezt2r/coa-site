@@ -32,6 +32,9 @@
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4pt 8pt; }
   .grid.g3 { grid-template-columns: 2fr 1fr; }
   .full { grid-column: 1 / -1; }
+  .next { margin: 4pt 0 0; padding: 3pt 7pt; border-left: 2pt solid var(--ok); background: #F4F8F5;
+          font-size: 7.6pt; font-style: italic; color: var(--ink); }
+  .next b { color: var(--ok); }
   .f { position: relative; height: 24pt; background: var(--field); border: .75pt solid var(--rule); border-radius: 1.5pt; padding: 2pt 5pt 0; }
   .f label { display: block; font-size: 6.8pt; font-style: italic; font-weight: 700; color: var(--muted); line-height: 1.1; }
   .f label em { font-weight: 400; }
@@ -120,9 +123,10 @@
     <div class="f"><label>Date Shipped</label></div>
     <div class="f"><label>Contact Name</label></div>
     <div class="f"><label>Phone</label></div>
-    <div class="f"><label>Email for Results <em>— certificates are delivered to this address</em></label></div>
+    <div class="f"><label>Email for Results <em>— receipt confirmation, payment link and certificates are sent here</em></label></div>
     <div class="f"><label>USPS Tracking Number</label></div>
   </div>
+  <p class="next"><b>What happens next:</b> Once this form is completed and submitted, a confirmation of receipt and a payment link for the tests ordered will be emailed to the address given in Email for Results.</p>
 </section>
 
 <section>
@@ -328,6 +332,11 @@
 <section>
   <h2>Optional Tests</h2>
   <p class="price-note">Optional tests A–D on the submission form (Peptide Content, Water Content, Residual Solvents, Bacterial Endotoxins) are quoted on request. Contact RESULTS@VERIPURELABS.COM with the samples and tests required.</p>
+</section>
+
+<section>
+  <h2>Payment</h2>
+  <p class="price-note">Once this form is completed and submitted, a confirmation of receipt and a payment link for the tests ordered will be emailed to the address given in Email for Results.</p>
 </section>
 
 <footer>

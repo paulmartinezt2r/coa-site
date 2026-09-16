@@ -16,6 +16,9 @@ my $items = JSON::PP->new->utf8(0)->decode(slurp($json_file));
 my @TIERS = (215, 290, 450);
 my %is_tier = map { $_ => 1 } @TIERS;
 
+# Same wording as the "What happens next" note on page 1
+use constant PAYMENT_NOTE => 'Once this form is completed and submitted, a confirmation of receipt and a payment link for the tests ordered will be emailed to the address given in Email for Results.';
+
 sub clean {
   my $n = shift;
   $n =~ s/\s+analysis$//;                 # section headings already say "analysis"
@@ -57,6 +60,7 @@ for my $it (sort { $a->{price} <=> $b->{price} or by_name() } @special) {
 $html .= qq~    </tbody>\n  </table>\n</section>\n\n~;
 
 $html .= qq~<section>\n  <h2>Optional Tests</h2>\n  <p class="price-note">Optional tests A–D on the submission form (Peptide Content, Water Content, Residual Solvents, Bacterial Endotoxins) are quoted on request. Contact RESULTS\@VERIPURELABS.COM with the samples and tests required.</p>\n</section>\n\n~;
+$html .= qq~<section>\n  <h2>Payment</h2>\n  <p class="price-note">~ . PAYMENT_NOTE . qq~</p>\n</section>\n\n~;
 $html .= qq~<footer>\n  VeriPure Labs is aligned with ISO 9001 and Good Laboratory Practice (GLP) principles. All testing and reports issued are strictly for research use only.<br>\n  <span style="font-weight:400">Prices subject to change without notice · Price Sheet VPL-PS · Rev. 09/2026</span>\n</footer>\n</div>\n<!-- PRICE-SHEET:END -->\n~;
 
 # ---- Integrity check: every source item appears exactly once, at its source price
