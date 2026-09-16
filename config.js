@@ -21,7 +21,7 @@ window.COA_CONFIG = {
     "133 Example Court, Suite 106",
     "Franklin, TN 37067"
   ],
-  email: "results@example-lab.com",
+  email: "results@veripurelabs.com",
   phone: "",
 
   /* --- Where the COA PDFs live ------------------------------------

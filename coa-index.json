@@ -1,6 +1,6 @@
 {
   "_comment": "Public COA index. Every record here is searchable on the site. The six records below are EXAMPLES so you can see the page working - delete them before going live, or regenerate this file with tools/Build-CoaIndex.ps1. Required per record: code, company, compound. Everything else is optional and simply omitted from the result card if absent. 'file' defaults to <code>.pdf inside config.pdfBase.",
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "records": [
     {
       "code": "EXAM2603170030",
@@ -97,6 +97,18 @@
       "massTheoretical": "5135.82 Da",
       "methods": "HPLC-UV 214 nm · LC-MS ESI(+)",
       "example": true
+    },
+    {
+      "code": "VPL-219777-COA",
+      "accession": "219777",
+      "company": "Tipsypharma.com",
+      "compound": "Retatrutide 10mg",
+      "lot": "RT10-092523-01",
+      "reported": "2026-08-26",
+      "purity": 99.45,
+      "identity": "Confirmed",
+      "methods": "HPLC-UV 214 nm · LC-MS ESI(+)",
+      "file": "VPL-219777-COA.pdf"
     }
   ]
 }

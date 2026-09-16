@@ -284,7 +284,7 @@
     }
 
     var cells =
-      cell("Search code", rec.code) +
+      cell("Report number", rec.code) +
       cell("Accession", rec.accession) +
       cell("Company", rec.company) +
       cell("Lot / Batch", rec.lot) +
@@ -300,8 +300,11 @@
       var floor = 95;
       var pct = Math.max(0, (clamped - floor) / (100 - floor)) * 100;
       var tick = ((98 - floor) / (100 - floor)) * 100;
+      // A trace is only drawn from a reported retention time. Records without
+      // one get the purity meter alone, rather than a peak at an invented RT.
+      var hasRt = typeof rec.rt === "number";
       assay =
-        '<div class="assay">' +
+        '<div class="assay' + (hasRt ? "" : " assay-solo") + '">' +
           '<div class="assay-purity">' +
             '<p class="eyebrow">Purity by HPLC-UV, area %</p>' +
             '<div class="assay-figure" style="margin-top:8px">' +
@@ -314,10 +317,12 @@
             '<div class="meter-scale"><span>95.00</span>' +
               "<span>98.00 threshold</span><span>100.00</span></div>" +
           "</div>" +
-          '<div class="assay-trace">' +
-            '<canvas class="trace" data-record-trace aria-label="Chromatogram, main peak at ' +
-              (rec.rt || "") + ' minutes"></canvas>' +
-          "</div>" +
+          (hasRt
+            ? '<div class="assay-trace">' +
+                '<canvas class="trace" data-record-trace aria-label="Chromatogram, main peak at ' +
+                  rec.rt.toFixed(2) + ' minutes"></canvas>' +
+              "</div>"
+            : "") +
         "</div>";
     }
 
@@ -432,7 +437,7 @@
       if (hits === null) {
         renderNotice("Company search unavailable",
           "Company-name search reads the public index, which did not load. " +
-          "Search by your Search Code instead — it works without the index.");
+          "Search by report number instead — it works without the index.");
         return;
       }
       if (!raw.trim()) {
@@ -443,7 +448,7 @@
       if (!hits.length) {
         renderNotice("No certificates for that company",
           "Nothing in the public index matches <span class=\"mono\">" + esc(raw.trim()) +
-          "</span>. Check the spelling, or search by Search Code instead.");
+          "</span>. Check the spelling, or search by report number instead.");
         return;
       }
       renderHits(hits, raw.trim());
@@ -453,9 +458,9 @@
 
     var code = normalizeCode(raw);
     if (!code) {
-      renderNotice("Enter a search code",
-        "Your Search Code is in the top-right table of your certificate: " +
-        "four letters followed by the accession number.");
+      renderNotice("Enter a report number",
+        "Your Report Number is in the Report Information table at the top of your " +
+        "certificate, for example VPL-219777-COA. The Task Number alone also works.");
       return;
     }
 
@@ -475,8 +480,8 @@
 
     renderNotice("No certificate found",
       "Nothing matches <span class=\"mono\">" + esc(code) + "</span>. " +
-      "Copy the Search Code exactly as printed on your certificate — four letters " +
-      "from the company name followed by the accession number, no spaces. " +
+      "Copy the Report Number exactly as printed on your certificate, for example " +
+      "VPL-219777-COA, or enter just the Task Number. " +
       "If it still does not resolve, email " +
       '<a href="mailto:' + esc(CFG.email || "") + '">' + esc(CFG.email || "the lab") + "</a>.");
   }
@@ -647,8 +652,8 @@
       input.setAttribute("aria-label", "Company name");
       input.style.letterSpacing = "normal";
     } else {
-      input.placeholder = "ABCD2603170030";
-      input.setAttribute("aria-label", "Search code or accession number");
+      input.placeholder = "VPL-219777-COA";
+      input.setAttribute("aria-label", "Report number or task number");
       input.style.letterSpacing = "";
     }
     input.value = "";
@@ -724,7 +729,7 @@
       renderCertificate(INDEX.records[0]);
     } else {
       renderNotice("Ready",
-        "Enter a Search Code above to retrieve a certificate.", "ok");
+        "Enter a report number above to retrieve a certificate.", "ok");
     }
   }
 

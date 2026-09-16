@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Peptide COA Registry</title>
-<meta name="description" content="Independent HPLC purity and LC-MS identity testing for research-use-only peptides. Look up any certificate of analysis by search code, accession number, or company name.">
+<meta name="description" content="Independent HPLC purity and LC-MS identity testing for research-use-only peptides. Look up any certificate of analysis by report number, task number, or company name.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap">
 <!-- ?v= is a cache buster: bump it whenever styles.css, app.js or config.js
      changes, or returning visitors keep the stale copy for up to 10 minutes -->
-<link rel="stylesheet" href="assets/styles.css?v=3">
+<link rel="stylesheet" href="assets/styles.css?v=4">
 </head>
 <body>
 
@@ -107,37 +107,41 @@
 
         <div class="lookup-body">
           <div class="segmented" role="tablist" aria-label="Search by">
-            <button type="button" role="tab" data-mode="code" aria-selected="true">Search code / Accession</button>
+            <button type="button" role="tab" data-mode="code" aria-selected="true">Report no. / Task no.</button>
             <button type="button" role="tab" data-mode="company" aria-selected="false">Company name</button>
           </div>
 
           <div class="field">
             <input id="q" type="text" inputmode="text" spellcheck="false"
-                   placeholder="ABCD2603170030"
-                   aria-label="Search code or accession number">
+                   placeholder="VPL-219777-COA"
+                   aria-label="Report number or task number">
             <button class="btn btn-primary" type="button" id="lookup-btn">Look up</button>
           </div>
 
           <p class="hint">Codes are not case-sensitive. Spaces and dashes are ignored.</p>
 
           <details class="disclose">
-            <summary>Where is my search code?</summary>
+            <summary>Where is my report number?</summary>
             <div class="disclose-body">
               <ol class="steps-inline">
                 <li>Open your Certificate of Analysis PDF.</li>
-                <li>Find the field labelled <code>Search Code</code> in the table at the top right.</li>
-                <li>Enter it below. It is the first four characters of your company name followed by the accession number.</li>
+                <li>Find <code>Report Number</code> in the Report Information table at the top of the page.</li>
+                <li>Enter it above. Dashes are optional, and the Task Number on its own works too.</li>
               </ol>
               <div class="anatomy">
-                <p class="eyebrow" style="margin-bottom:10px">Anatomy of a search code</p>
+                <p class="eyebrow" style="margin-bottom:10px">Anatomy of a report number</p>
                 <div class="anatomy-code">
                   <span class="anatomy-part">
-                    <b>ABCD</b>
-                    <i>First 4 characters<br>of company name</i>
+                    <b>VPL</b>
+                    <i>Lab<br>prefix</i>
                   </span>
                   <span class="anatomy-part">
-                    <b>2603170030</b>
-                    <i>Accession number<br>from your report</i>
+                    <b>219777</b>
+                    <i>Task<br>number</i>
+                  </span>
+                  <span class="anatomy-part">
+                    <b>COA</b>
+                    <i>Document<br>type</i>
                   </span>
                 </div>
               </div>
@@ -379,8 +383,8 @@
   </div>
 </footer>
 
-<script src="config.js?v=3"></script>
-<script src="assets/app.js?v=3"></script>
+<script src="config.js?v=4"></script>
+<script src="assets/app.js?v=4"></script>
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
   var m2 = document.getElementById("mailto2");
