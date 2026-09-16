@@ -17,7 +17,7 @@ my @TIERS = (215, 290, 450);
 my %is_tier = map { $_ => 1 } @TIERS;
 
 # Describes the same process as the numbered steps on page 1
-use constant PAYMENT_NOTE => 'Submission forms are accepted by email only, using the Email the Lab button on our website. If your submission is accepted, a payment link for the tests ordered is sent to the address given in Email for Results. Once payment is complete you will receive a confirmation number and receipt: include both with your vials when you ship.';
+use constant PAYMENT_NOTE => 'Submission forms are accepted by email only, using the Email the Lab button on our website. If your submission is accepted, a payment link for the tests ordered is sent to the address given in Email for Results; if it is declined, you will be notified by email. Once payment is complete you will receive a confirmation number and receipt: include both with your vials when you ship.';
 
 sub clean {
   my $n = shift;
