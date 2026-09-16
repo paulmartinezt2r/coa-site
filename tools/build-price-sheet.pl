@@ -16,8 +16,8 @@ my $items = JSON::PP->new->utf8(0)->decode(slurp($json_file));
 my @TIERS = (215, 290, 450);
 my %is_tier = map { $_ => 1 } @TIERS;
 
-# Same wording as the "What happens next" note on page 1
-use constant PAYMENT_NOTE => 'Once this form is completed and submitted, a confirmation of receipt and a payment link for the tests ordered will be emailed to the address given in Email for Results.';
+# Same receipt wording as the "How to submit" note on page 1
+use constant PAYMENT_NOTE => 'Submission forms are accepted by email only, using the Email the Lab button on our website. Once your emailed form is received, a confirmation of receipt and a payment link for the tests ordered will be sent to the address given in Email for Results.';
 
 sub clean {
   my $n = shift;
@@ -95,8 +95,6 @@ $form =~ s{\n?<!-- PRICE-SHEET:START.*?<!-- PRICE-SHEET:END -->\n}{}s;
 $form =~ s{\n?  /\* PRICE-SHEET-CSS:START \*/.*?/\* PRICE-SHEET-CSS:END \*/\n}{}s;
 $form =~ s{</style>}{$css</style>} or die "no </style>\n";
 $form =~ s{</body>}{$html\n</body>} or die "no </body>\n";
-# Point page 1 at page 2 (idempotent)
-$form =~ s{<span>Place one completed form inside each shipment\.</span>}{<span>Place one completed form inside each shipment. Pricing on page 2.</span>};
 
 open my $o, '>:raw', $form_file or die; print $o $form; close $o;
 printf "ok  %d items (%d tiered, %d specialty), price total %d\n", scalar(@$items), scalar(@$items) - @special, scalar(@special), $src_sum;

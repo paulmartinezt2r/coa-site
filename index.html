@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap">
 <!-- ?v= is a cache buster: bump it whenever styles.css, app.js or config.js
      changes, or returning visitors keep the stale copy for up to 10 minutes -->
-<link rel="stylesheet" href="assets/styles.css?v=8">
+<link rel="stylesheet" href="assets/styles.css?v=9">
 </head>
 <body>
 
@@ -257,8 +257,8 @@
       <div class="step">
         <span class="step-n">Step 01</span>
         <h4>Sample received</h4>
-        <p>Ship the vial with a completed submission form. We log it, assign an accession
-           number, and confirm receipt by email the same day.</p>
+        <p>Email your completed submission form using Email the Lab, and ship the vial.
+           We log it, assign an accession number, and email a receipt confirmation and payment link.</p>
       </div>
       <div class="step">
         <span class="step-n">Step 02</span>
@@ -326,14 +326,17 @@
         Send a vial. Get a certificate your customers can check.
       </h2>
       <p class="lede">
-        Include a completed submission form with each sample so we can match it to your
-        company and assign the accession number correctly. Sample requirement is 2 mg minimum,
-        shipped at ambient temperature unless the compound requires otherwise.
+        Download the submission form, complete it, and send it to us with the Email the Lab
+        button. All submission forms must be submitted by email. You'll receive a confirmation of
+        receipt and a payment link for the tests ordered at the email address on your form.
+        Sample requirement is 2 mg minimum, shipped at ambient temperature unless the compound
+        requires otherwise.
       </p>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px">
         <a class="btn btn-primary" href="assets/forms/VeriPure-Sample-Submission-Form.pdf" id="form-link" target="_blank" rel="noopener">Submission form (PDF)</a>
         <a class="btn btn-ghost" href="#" id="mailto">Email the lab</a>
       </div>
+      <p class="hint">Email the Lab opens a new email to the lab. Attach your completed form before sending.</p>
     </div>
 
     <div class="panel" style="padding:20px">
@@ -375,8 +378,8 @@
   </div>
 </footer>
 
-<script src="config.js?v=8"></script>
-<script src="assets/app.js?v=8"></script>
+<script src="config.js?v=9"></script>
+<script src="assets/app.js?v=9"></script>
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
   var m2 = document.getElementById("mailto2");

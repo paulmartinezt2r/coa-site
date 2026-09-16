@@ -544,8 +544,17 @@
     var addr = $("#address");
     if (addr && CFG.address) addr.innerHTML = CFG.address.map(esc).join("<br>");
 
+    // Submission forms are accepted by email only. A mailto link cannot attach
+    // the PDF, so the prefilled body reminds the sender to attach it.
     var mail = $("#mailto");
-    if (mail && CFG.email) mail.href = "mailto:" + CFG.email;
+    if (mail && CFG.email) {
+      mail.href = "mailto:" + CFG.email +
+        "?subject=" + encodeURIComponent("Sample Submission Form") +
+        "&body=" + encodeURIComponent(
+          "Hello VeriPure Labs,\n\n" +
+          "My completed sample submission form is attached.\n\n" +
+          "Reminder: attach the completed PDF form before sending.\n");
+    }
 
     var q = $("#quality");
     if (q && CFG.quality) {
