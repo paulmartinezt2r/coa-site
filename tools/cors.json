@@ -3,7 +3,8 @@
     "AllowedHeaders": ["*"],
     "AllowedMethods": ["GET", "HEAD"],
     "AllowedOrigins": [
-      "https://paulmartinezt2r.github.io"
+      "https://www.veripurelabs.com",
+      "https://veripurelabs.com"
     ],
     "ExposeHeaders": [],
     "MaxAgeSeconds": 3000
