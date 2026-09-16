@@ -710,6 +710,12 @@ canvas.trace { display: block; width: 100%; height: auto; }
 
 .hint { font-size: 12.5px; color: var(--ink-3); }
 
+/* An empty search is reported at the field, where the person is already looking */
+.hint.is-error { color: var(--alert); }
+
+/* Focus is moved here programmatically after a lookup; the scroll is the cue */
+#result-out:focus { outline: none; }
+
 /* Disclosure: where is my search code */
 
 .disclose {

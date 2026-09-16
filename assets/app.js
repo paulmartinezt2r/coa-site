@@ -410,9 +410,29 @@
       "<p>" + body + "</p></div>";
   }
 
+  // Every lookup outcome renders below the hero, usually out of view, so each
+  // one scrolls there. Focus follows: screen readers announce the result, and on
+  // phones the on-screen keyboard closes instead of covering the certificate.
   function focusResult() {
     var band = $("#result");
-    if (band) band.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (!band) return;
+    var target = $("#result-out");
+    if (target && target.focus) {
+      try { target.focus({ preventScroll: true }); } catch (e) { /* older browsers */ }
+    }
+    var reduce = window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    band.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  }
+
+  var DEFAULT_HINT = "Codes are not case-sensitive. Spaces and dashes are ignored.";
+
+  // Messages about the input itself stay beside the input, with no scroll away.
+  function fieldMessage(text) {
+    var hint = $("#lookup-hint");
+    if (!hint) return;
+    hint.textContent = text || DEFAULT_HINT;
+    hint.classList.toggle("is-error", !!text);
   }
 
   function setDeepLink(code) {
@@ -431,6 +451,7 @@
     if (e) e.preventDefault();
     var input = $("#q");
     var raw = input.value;
+    fieldMessage(null);
 
     if (mode === "company") {
       var hits = findByCompany(raw);
@@ -438,17 +459,19 @@
         renderNotice("Company search unavailable",
           "Company-name search reads the public index, which did not load. " +
           "Search by report number instead — it works without the index.");
+        focusResult();
         return;
       }
       if (!raw.trim()) {
-        renderNotice("Enter a company name",
-          "Type the company name exactly as it appears on the certificate. Partial names match.");
+        fieldMessage("Enter a company name as it appears on the certificate. Partial names match.");
+        input.focus();
         return;
       }
       if (!hits.length) {
         renderNotice("No certificates for that company",
           "Nothing in the public index matches <span class=\"mono\">" + esc(raw.trim()) +
           "</span>. Check the spelling, or search by report number instead.");
+        focusResult();
         return;
       }
       renderHits(hits, raw.trim());
@@ -458,9 +481,9 @@
 
     var code = normalizeCode(raw);
     if (!code) {
-      renderNotice("Enter a report number",
-        "Your Report Number is in the Report Information table at the top of your " +
-        "certificate, for example VPL-000000-COA. The Task Number alone also works.");
+      fieldMessage("Enter the Report Number from your certificate, for example " +
+        "VPL-000000-COA. The Task Number alone also works.");
+      input.focus();
       return;
     }
 
@@ -484,6 +507,7 @@
       "VPL-000000-COA, or enter just the Task Number. " +
       "If it still does not resolve, email " +
       '<a href="mailto:' + esc(CFG.email || "") + '">' + esc(CFG.email || "the lab") + "</a>.");
+    focusResult();
   }
 
   function verifyDirect(code) {
@@ -674,8 +698,10 @@
     $("#lookup-form").addEventListener("submit", handleSubmit);
     $("#lookup-btn").addEventListener("click", handleSubmit);
     $("#q").addEventListener("keydown", function (ev) {
-      if (ev.key === "Enter") { ev.preventDefault(); handleSubmit(); }
+      // keyCode 13 covers older keyboards and IMEs that leave key unset
+      if (ev.key === "Enter" || ev.keyCode === 13) { ev.preventDefault(); handleSubmit(); }
     });
+    $("#q").addEventListener("input", function () { fieldMessage(null); });
     Array.prototype.forEach.call(document.querySelectorAll(".segmented button"), function (b) {
       b.addEventListener("click", function () { setMode(b.getAttribute("data-mode")); });
     });

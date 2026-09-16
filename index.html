@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap">
 <!-- ?v= is a cache buster: bump it whenever styles.css, app.js or config.js
      changes, or returning visitors keep the stale copy for up to 10 minutes -->
-<link rel="stylesheet" href="assets/styles.css?v=6">
+<link rel="stylesheet" href="assets/styles.css?v=7">
 </head>
 <body>
 
@@ -118,7 +118,7 @@
             <button class="btn btn-primary" type="button" id="lookup-btn">Look up</button>
           </div>
 
-          <p class="hint">Codes are not case-sensitive. Spaces and dashes are ignored.</p>
+          <p class="hint" id="lookup-hint" aria-live="polite">Codes are not case-sensitive. Spaces and dashes are ignored.</p>
 
           <details class="disclose">
             <summary>Where is my report number?</summary>
@@ -182,7 +182,7 @@
       <p class="eyebrow eyebrow-signal">Retrieved certificate</p>
       <p class="hint">Every field below is taken from the signed report. The PDF is the record of authority.</p>
     </div>
-    <div id="result-out"></div>
+    <div id="result-out" tabindex="-1"></div>
   </div>
 </section>
 
@@ -383,8 +383,8 @@
   </div>
 </footer>
 
-<script src="config.js?v=6"></script>
-<script src="assets/app.js?v=6"></script>
+<script src="config.js?v=7"></script>
+<script src="assets/app.js?v=7"></script>
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
   var m2 = document.getElementById("mailto2");
