@@ -460,7 +460,7 @@
     if (!code) {
       renderNotice("Enter a report number",
         "Your Report Number is in the Report Information table at the top of your " +
-        "certificate, for example VPL-219777-COA. The Task Number alone also works.");
+        "certificate, for example VPL-000000-COA. The Task Number alone also works.");
       return;
     }
 
@@ -481,7 +481,7 @@
     renderNotice("No certificate found",
       "Nothing matches <span class=\"mono\">" + esc(code) + "</span>. " +
       "Copy the Report Number exactly as printed on your certificate, for example " +
-      "VPL-219777-COA, or enter just the Task Number. " +
+      "VPL-000000-COA, or enter just the Task Number. " +
       "If it still does not resolve, email " +
       '<a href="mailto:' + esc(CFG.email || "") + '">' + esc(CFG.email || "the lab") + "</a>.");
   }
@@ -652,7 +652,7 @@
       input.setAttribute("aria-label", "Company name");
       input.style.letterSpacing = "normal";
     } else {
-      input.placeholder = "VPL-219777-COA";
+      input.placeholder = "VPL-000000-COA";
       input.setAttribute("aria-label", "Report number or task number");
       input.style.letterSpacing = "";
     }
