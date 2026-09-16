@@ -1,7 +1,7 @@
 # COA Registry — single-page lab site
 
 A static, one-page site for publishing and retrieving certificates of analysis.
-No backend, no database, no build step. A client types their search code, the page
+No backend, no database, no build step. A client types their report number, the page
 resolves it to a PDF, and the certificate renders with its purity, identity, and
 chromatogram summary.
 
@@ -84,11 +84,11 @@ Then set `pdfBase` in `config.js`:
 pdfBase: "https://my-lab-coas.s3.us-east-1.amazonaws.com/coas/",
 ```
 
-**Upload a COA** — name the file exactly the search code, and set the headers so it
+**Upload a COA** — name the file exactly the report number, and set the headers so it
 opens in the browser instead of downloading:
 
 ```bash
-aws s3 cp ABCD2603170030.pdf s3://my-lab-coas/coas/ABCD2603170030.pdf --content-type application/pdf --content-disposition inline
+aws s3 cp Certificate.pdf s3://veripure-labs/coas/VPL-219777-COA.pdf --content-type application/pdf --content-disposition inline
 ```
 
 Only put certificates in this bucket. Everything under `coas/` is world-readable by
@@ -112,7 +112,7 @@ cd coa-site\tools
 .\Build-CoaIndex.ps1 -Bucket my-lab-coas -Prefix coas/ -DropExamples
 ```
 
-The script lists every PDF, turns each filename into a search code, and **preserves
+The script lists every PDF, turns each filename into a report number, and **preserves
 metadata already in the file** — so anything you typed in by hand survives a rebuild.
 New PDFs arrive as stubs with just the code and accession number, which is enough for
 lookup to work.
@@ -171,9 +171,9 @@ when it does not.
 - [ ] `config.js` — `quality`: **state only what you actually hold.** "Aligned to
       ISO 9001 principles" and "accredited to ISO 9001" are very different claims,
       and the second one needs a certificate number behind it.
-- [ ] `coa-index.json` — delete the six example records (or run the script with
-      `-DropExamples`). They are flagged `"example": true` and render with a red
-      *Example record* pill so they cannot be mistaken for real results.
+- [x] `coa-index.json` — example records removed. If you ever add demo data
+      again, flag it `"example": true`: it renders with a red *Example record*
+      pill, and `-DropExamples` strips it on the next index rebuild.
 - [ ] `index.html` — point `#form-link` at your submission form PDF
 - [ ] Footer disclaimer — have someone confirm the research-use-only wording matches
       how you actually operate
@@ -204,12 +204,13 @@ for every experiment.
 
 ## Nice to know
 
-- **Deep links.** `?coa=ABCD2603170030` opens the page with that certificate already
+- **Deep links.** `?coa=VPL-219777-COA` opens the page with that certificate already
   resolved. Paste it into the email that delivers the COA and the client's customers
   can verify the batch in one click.
-- **Accession numbers.** The search code convention is the first four characters of
-  the company name plus the accession number. The index script parses the trailing
-  digit run as the accession automatically.
+- **Report and task numbers.** Certificates are keyed on the Report Number
+  (`VPL-219777-COA`); dashes are optional when searching. The index script stores
+  the Task Number (`219777`) as the accession automatically, so the bare task
+  number resolves too.
 - **Chromatograms.** The trace on each result card is drawn from that record's own
   reported retention time and purity — the main peak sits at the stated RT and the
   impurity envelope reflects the stated purity. It is an at-a-glance summary, not a

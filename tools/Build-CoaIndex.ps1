@@ -90,9 +90,10 @@ foreach ($key in ($keys | Sort-Object)) {
     $file = [System.IO.Path]::GetFileName($key)
     $code = [System.IO.Path]::GetFileNameWithoutExtension($file).ToUpper()
 
-    # Accession = trailing digit run of the search code
+    # Accession = the task number: the last run of 4+ digits, optionally followed
+    # by a suffix such as -COA (VPL-219777-COA -> 219777)
     $accession = $null
-    if ($code -match '(\d{4,})$') { $accession = $Matches[1] }
+    if ($code -match '(\d{4,})(?:-[A-Z]+)?$') { $accession = $Matches[1] }
 
     $rec = [ordered]@{ code = $code }
     if ($accession) { $rec.accession = $accession }

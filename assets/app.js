@@ -648,7 +648,7 @@
       b.setAttribute("aria-selected", String(b.getAttribute("data-mode") === next));
     });
     if (next === "company") {
-      input.placeholder = "Example Research Supply";
+      input.placeholder = "Company name as printed on the certificate";
       input.setAttribute("aria-label", "Company name");
       input.style.letterSpacing = "normal";
     } else {
@@ -723,14 +723,11 @@
       handleSubmit();
       return;
     }
-    // Open in a working state: show the first record so the page
-    // demonstrates what a resolved certificate looks like.
-    if (INDEX && INDEX.records.length) {
-      renderCertificate(INDEX.records[0]);
-    } else {
-      renderNotice("Ready",
-        "Enter a report number above to retrieve a certificate.", "ok");
-    }
+    // At rest, prompt for a lookup rather than displaying a certificate: the
+    // index now holds real client reports, and none should be featured on the
+    // homepage by default.
+    renderNotice("Ready",
+      "Enter a report number above to retrieve a certificate.", "ok");
   }
 
   if (document.readyState === "loading") {

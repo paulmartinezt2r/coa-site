@@ -14,12 +14,11 @@ window.COA_CONFIG = {
 
   // CHANGE ME
   established: "2023",
-  location: "Franklin, Tennessee",
-  // CHANGE ME: still placeholder — send me the real shipping address
+  location: "Plantation, Florida",
   address: [
     "VeriPure Labs",
-    "133 Example Court, Suite 106",
-    "Franklin, TN 37067"
+    "PO Box 16094",
+    "Plantation, FL 33318"
   ],
   email: "results@veripurelabs.com",
   phone: "",
