@@ -370,33 +370,59 @@
   }
 
   function renderHits(list, query) {
+    // Partial names can match several companies; only name one in the header
+    // when every result belongs to it.
+    var companies = {};
+    list.forEach(function (r) { companies[r.company || ""] = true; });
+    var single = Object.keys(companies).length === 1;
+
     var rows = list.map(function (r) {
-      return '<button class="hit" type="button" data-code="' + esc(r.code) + '">' +
-        '<span class="hit-compound">' + esc(r.compound || "—") + "</span>" +
-        '<span class="hit-meta">' + esc(r.lot ? "Lot " + r.lot : "") +
-          (r.reported ? "  ·  " + fmtDate(r.reported) : "") + "</span>" +
-        '<span class="hit-purity">' +
-          (typeof r.purity === "number" ? r.purity.toFixed(2) + "%" : "—") + "</span>" +
-        '<span class="hit-code">' + esc(r.code) + "</span>" +
-      "</button>";
+      var url = pdfUrlFor(r);
+      var purity = typeof r.purity === "number" ? r.purity.toFixed(2) + "%" : "—";
+      var meta = [
+        single ? "" : esc(r.company || ""),
+        r.lot ? "Lot " + esc(r.lot) : "",
+        r.reported ? "Issued " + esc(fmtDate(r.reported)) : ""
+      ].filter(Boolean).join(" · ");
+
+      return '<div class="hit" data-code="' + esc(r.code) + '">' +
+        '<div class="hit-main">' +
+          '<span class="hit-compound">' + esc(r.compound || "Certificate of Analysis") + "</span>" +
+          (meta ? '<span class="hit-meta">' + meta + "</span>" : "") +
+        "</div>" +
+        '<div class="hit-stat"><span class="hit-label">Purity (HPLC)</span>' +
+          '<span class="hit-purity">' + purity + "</span></div>" +
+        '<div class="hit-stat"><span class="hit-label">Report no.</span>' +
+          '<span class="hit-code">' + esc(r.code) + "</span></div>" +
+        '<div class="hit-actions">' +
+          '<button class="btn btn-primary btn-sm hit-open" type="button">' +
+            'View certificate <span aria-hidden="true">→</span></button>' +
+          (url ? '<a class="btn btn-ghost btn-sm hit-pdf" href="' + esc(url) +
+            '" target="_blank" rel="noopener" aria-label="Open PDF for ' + esc(r.code) + '">PDF</a>' : "") +
+        "</div>" +
+      "</div>";
     }).join("");
+
+    var count = list.length + (list.length === 1 ? " certificate" : " certificates") +
+      " matching “" + esc(query) + "”";
 
     out.innerHTML =
       '<div class="panel cert">' +
-        '<div class="cert-top">' +
-          '<div class="cert-title">' +
-            "<h3>" + esc(list[0].company) + "</h3>" +
-            '<div class="cert-sub">' + list.length +
-              (list.length === 1 ? " certificate" : " certificates") +
-              " matching “" + esc(query) + "”</div>" +
+        '<div class="hits-head">' +
+          '<div class="hits-title">' +
+            '<span class="hit-label">' + (single ? "Company" : "Companies") + "</span>" +
+            "<h3>" + (single ? esc(list[0].company) : "Multiple companies") + "</h3>" +
           "</div>" +
+          '<span class="hits-count">' + count + "</span>" +
         "</div>" +
         '<div class="hits">' + rows + "</div>" +
       "</div>";
 
-    Array.prototype.forEach.call(out.querySelectorAll(".hit"), function (btn) {
-      btn.addEventListener("click", function () {
-        var rec = findByCode(normalizeCode(btn.getAttribute("data-code")));
+    // The whole row opens the certificate; the PDF link keeps its own behaviour
+    Array.prototype.forEach.call(out.querySelectorAll(".hit"), function (row) {
+      row.addEventListener("click", function (ev) {
+        if (ev.target.closest && ev.target.closest(".hit-pdf")) return;
+        var rec = findByCode(normalizeCode(row.getAttribute("data-code")));
         if (rec) { renderCertificate(rec); setDeepLink(rec.code); focusResult(); }
       });
     });
