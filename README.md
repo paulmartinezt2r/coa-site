@@ -231,5 +231,18 @@ $in = "file:///" + ((Resolve-Path tools\submission-form.html).Path -replace '\',
 & "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --headless=new --disable-gpu --no-pdf-header-footer --print-to-pdf="$PWD\assets\forms\VeriPure-Sample-Submission-Form.pdf" $in
 ```
 
-Check it is still one page, bump `Rev.` in the form footer if the content changed,
+Check it is still two pages (form + price sheet), bump `Rev.` if the content changed,
 and commit both files.
+
+### Updating prices
+
+Page 2 is generated — do not edit it by hand. Change `tools/price-list.json`
+(one `{"name", "price"}` entry per analysis), then run:
+
+```powershell
+& "C:Program FilesGitSrinperl.exe" toolsuild-price-sheet.pl
+```
+
+It refuses to write if any item is missing, duplicated, or its price changed in
+transit, then re-print the PDF with the Edge command above. Prices of $215, $290
+and $450 are grouped into lists; any other price gets its own table row.
