@@ -32,9 +32,14 @@
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4pt 8pt; }
   .grid.g3 { grid-template-columns: 2fr 1fr; }
   .full { grid-column: 1 / -1; }
-  .next { margin: 4pt 0 0; padding: 3pt 7pt; border-left: 2pt solid var(--ok); background: #F4F8F5;
-          font-size: 7.6pt; font-style: italic; color: var(--ink); }
-  .next b { color: var(--ok); }
+  .flow { list-style: none; counter-reset: step; margin: 4pt 0 0; padding: 0; display: grid;
+          grid-template-columns: repeat(4, 1fr); background: #F4F8F5; border-left: 2pt solid var(--ok); }
+  .flow li { counter-increment: step; position: relative; padding: 3pt 6pt 3pt 17pt; font-size: 7.2pt;
+             font-style: italic; line-height: 1.25; border-right: .75pt solid #DCE7DF; }
+  .flow li:last-child { border-right: 0; }
+  .flow li::before { content: counter(step); position: absolute; left: 5pt; top: 3pt; font-style: normal;
+                     font-weight: 700; font-size: 8pt; color: var(--ok); }
+  .flow b { color: var(--ok); }
   .f { position: relative; height: 24pt; background: var(--field); border: .75pt solid var(--rule); border-radius: 1.5pt; padding: 2pt 5pt 0; }
   .f label { display: block; font-size: 6.8pt; font-style: italic; font-weight: 700; color: var(--muted); line-height: 1.1; }
   .f label em { font-weight: 400; }
@@ -81,7 +86,7 @@
 
   .lab-use { margin-top: 6pt; border: 1pt dashed #8A97A6; padding: 4pt 8pt 5pt; background: #FAFBFC; }
   .lab-use h3 { display: flex; justify-content: space-between; margin: 0 0 4pt; font-size: 7.6pt; font-style: italic; letter-spacing: .08em; color: var(--muted); text-transform: uppercase; }
-  .lab-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4pt 8pt; }
+  .lab-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4pt 8pt; }
   .lab-grid .f { height: 21pt; background: #fff; }
   .cond { grid-column: 1 / -1; font-size: 7.5pt; font-style: italic; font-weight: 700; color: var(--muted); display: flex; gap: 12pt; align-items: center; }
 
@@ -120,13 +125,17 @@
   <h2>Client Information</h2>
   <div class="grid g3">
     <div class="f"><label>Company Name <em>— exactly as it should appear on the certificate</em></label></div>
-    <div class="f"><label>Date Shipped</label></div>
+    <div class="f"><label>Date Submitted</label></div>
     <div class="f"><label>Contact Name</label></div>
     <div class="f"><label>Phone</label></div>
-    <div class="f"><label>Email for Results <em>— receipt confirmation, payment link and certificates are sent here</em></label></div>
-    <div class="f"><label>USPS Tracking Number</label></div>
+    <div class="f full"><label>Email for Results <em>— payment link, confirmation number, receipt and certificates are sent here</em></label></div>
   </div>
-  <p class="next"><b>How to submit:</b> All forms must be emailed to RESULTS@VERIPURELABS.COM using the <b>Email the Lab</b> button on our website. Once received, a confirmation of receipt and a payment link for the tests ordered are sent to your Email for Results address.</p>
+  <ol class="flow">
+    <li><b>Email this form</b> using the Email the Lab button on our website.</li>
+    <li><b>Get a payment link</b> by email if your submission is accepted.</li>
+    <li><b>Pay</b> to receive your confirmation number and receipt.</li>
+    <li><b>Ship your vials</b> with the receipt and confirmation number.</li>
+  </ol>
 </section>
 
 <section>
@@ -180,9 +189,9 @@
       <span>VeriPure Labs<br>PO Box 16094<br>Plantation, FL 33318</span>
     </div>
     <ul>
-      <li><b>Ship via USPS.</b> UPS and FedEx cannot deliver to PO boxes.</li>
+      <li><b>Ship after payment, by USPS only</b>, with your receipt enclosed.</li>
       <li>Minimum <b>2 mg</b> per sample, each vial sealed and labeled to match its row. Ambient temperature unless cold transport is required.</li>
-      <li>Typical turnaround: <b>4–6 business days</b> from receipt.</li>
+      <li>Typical turnaround: <b>4–6 business days</b> from when your vials arrive.</li>
     </ul>
   </div>
   <div>
@@ -199,6 +208,7 @@
 <div class="lab-use">
   <h3><span>For Laboratory Use Only</span><span style="letter-spacing:0;text-transform:none;font-weight:400">Form VPL-SSF · Rev. 09/2026</span></h3>
   <div class="lab-grid">
+    <div class="f"><label>Confirmation No.</label></div>
     <div class="f"><label>Task No.</label></div>
     <div class="f"><label>Report No(s).</label></div>
     <div class="f"><label>Date Received</label></div>
@@ -336,7 +346,7 @@
 
 <section>
   <h2>Payment</h2>
-  <p class="price-note">Submission forms are accepted by email only, using the Email the Lab button on our website. Once your emailed form is received, a confirmation of receipt and a payment link for the tests ordered will be sent to the address given in Email for Results.</p>
+  <p class="price-note">Submission forms are accepted by email only, using the Email the Lab button on our website. If your submission is accepted, a payment link for the tests ordered is sent to the address given in Email for Results. Once payment is complete you will receive a confirmation number and receipt: include both with your vials when you ship.</p>
 </section>
 
 <footer>
