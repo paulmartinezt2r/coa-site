@@ -7,10 +7,10 @@
 <meta name="description" content="Independent HPLC purity and LC-MS identity testing for research-use-only peptides. Look up any certificate of analysis by report number, task number, or company name.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <!-- ?v= is a cache buster: bump it whenever styles.css, app.js or config.js
      changes, or returning visitors keep the stale copy for up to 10 minutes -->
-<link rel="stylesheet" href="assets/styles.css?v=10">
+<link rel="stylesheet" href="assets/styles.css?v=11">
 </head>
 <body>
 
@@ -20,9 +20,9 @@
   <div class="utility">
     <div class="wrap utility-inner">
       <div class="utility-side">
-        <span>Independent third-party laboratory</span>
+        <b>Independent third-party analytical testing</b>
         <span class="utility-sep" aria-hidden="true"></span>
-        <span class="utility-dim" data-cfg="location">Plantation, Florida</span>
+        <span class="utility-dim utility-drop" data-cfg="location">Plantation, Florida</span>
       </div>
       <div class="utility-side">
         <span class="utility-dim utility-drop">Results in
@@ -30,7 +30,7 @@
         <span class="utility-sep utility-drop" aria-hidden="true"></span>
         <span class="utility-live">
           <i class="dot" id="index-dot" aria-hidden="true"></i>
-          <span id="index-status-text">Index loading</span>
+          <span id="index-status-text">Registry online</span>
         </span>
       </div>
     </div>
@@ -43,9 +43,9 @@
       <a class="wordmark" href="#top">
         <span class="wordmark-plate">
           <!-- Detector peak mark -->
-          <svg width="20" height="20" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+          <svg width="21" height="21" viewBox="0 0 22 22" fill="none" aria-hidden="true">
             <path d="M1 17.5h3.2l1.6-3.1 1.5 3.1h1.4l1.9-13 2.1 13h1.3l1.5-4.2 1.4 4.2H21"
-                  stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                  stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
           </svg>
         </span>
         <span class="wordmark-lines">
@@ -61,8 +61,6 @@
           <a href="#process">Process</a>
           <a href="#submit">Submit</a>
         </nav>
-
-        <span class="bar-div" aria-hidden="true"></span>
 
         <a class="btn btn-primary btn-sm bar-cta" href="#submit">Submit samples</a>
 
@@ -83,92 +81,68 @@
 
 <section class="hero" id="top">
   <div class="wrap hero-inner">
+    <span class="pill">Public COA registry · HPLC + LC-MS</span>
+    <h1>Every certificate we issue is <em>publicly verifiable</em>.</h1>
+    <p class="lede">
+      Independent purity and identity testing for research-use-only peptides.
+      Results in <span data-cfg="figures.turnaround">4–6</span> business days, and every
+      report retrievable here by anyone holding the report number.
+    </p>
 
-    <div class="hero-copy">
-      <p class="eyebrow">Independent analysis · HPLC + LC-MS</p>
-      <h1>Every certificate we issue is <em>publicly verifiable</em>.</h1>
-      <p class="lede">
-        Third-party purity and identity testing for research-use-only peptides.
-        Results in <span class="mono" data-cfg="figures.turnaround">4–6</span> business days — and
-        every report retrievable here, by anyone holding the code.
-      </p>
-      <div class="hero-facts">
-        <span class="chip" data-cfg="location">Plantation, Florida</span>
-        <span class="chip">No vendor affiliations</span>
-        <span class="chip">Purity + identity on every report</span>
+    <!-- Lookup instrument -->
+    <form class="finder" id="lookup-form" autocomplete="off">
+      <div class="finder-top">
+        <b>Certificate lookup</b>
+        <span class="finder-status" id="index-count">Public index</span>
+        <div class="segmented" role="tablist" aria-label="Search by">
+          <button type="button" role="tab" data-mode="code" aria-selected="true">Report no. / Task no.</button>
+          <button type="button" role="tab" data-mode="company" aria-selected="false">Company name</button>
+        </div>
       </div>
 
-      <!-- Lookup instrument -->
-      <form class="panel lookup" id="lookup-form" autocomplete="off">
-        <div class="panel-bar">
-          <span>COA Lookup</span>
-          <span class="panel-bar-live" id="index-count">Index · loading</span>
-        </div>
+      <div class="field">
+        <input id="q" type="text" inputmode="text" spellcheck="false"
+               placeholder="VPL-000000-COA"
+               aria-label="Report number or task number">
+        <button class="btn btn-primary" type="button" id="lookup-btn">Look up</button>
+      </div>
 
-        <div class="lookup-body">
-          <div class="segmented" role="tablist" aria-label="Search by">
-            <button type="button" role="tab" data-mode="code" aria-selected="true">Report no. / Task no.</button>
-            <button type="button" role="tab" data-mode="company" aria-selected="false">Company name</button>
-          </div>
+      <p class="hint" id="lookup-hint" aria-live="polite">Codes are not case-sensitive. Spaces and dashes are ignored.</p>
 
-          <div class="field">
-            <input id="q" type="text" inputmode="text" spellcheck="false"
-                   placeholder="VPL-000000-COA"
-                   aria-label="Report number or task number">
-            <button class="btn btn-primary" type="button" id="lookup-btn">Look up</button>
-          </div>
-
-          <p class="hint" id="lookup-hint" aria-live="polite">Codes are not case-sensitive. Spaces and dashes are ignored.</p>
-
-          <details class="disclose">
-            <summary>Where is my report number?</summary>
-            <div class="disclose-body">
-              <ol class="steps-inline">
-                <li>Open your Certificate of Analysis PDF.</li>
-                <li>Find <code>Report Number</code> in the Report Information table at the top of the page.</li>
-                <li>Enter it above. Dashes are optional, and the Task Number on its own works too.</li>
-              </ol>
-              <div class="anatomy">
-                <p class="eyebrow" style="margin-bottom:10px">Anatomy of a report number</p>
-                <div class="anatomy-code">
-                  <span class="anatomy-part">
-                    <b>VPL</b>
-                    <i>Lab<br>prefix</i>
-                  </span>
-                  <span class="anatomy-part">
-                    <b>000000</b>
-                    <i>Task<br>number</i>
-                  </span>
-                  <span class="anatomy-part">
-                    <b>COA</b>
-                    <i>Document<br>type</i>
-                  </span>
-                </div>
-              </div>
+      <details class="disclose">
+        <summary>Where is my report number?</summary>
+        <div class="disclose-body">
+          <ol class="steps-inline">
+            <li>Open your Certificate of Analysis PDF.</li>
+            <li>Find <code>Report Number</code> in the Report Information table at the top of the page.</li>
+            <li>Enter it above. Dashes are optional, and the Task Number on its own works too.</li>
+          </ol>
+          <div class="anatomy">
+            <p class="eyebrow" style="margin-bottom:10px">Anatomy of a report number</p>
+            <div class="anatomy-code">
+              <span class="anatomy-part">
+                <b>VPL</b>
+                <i>Lab<br>prefix</i>
+              </span>
+              <span class="anatomy-part">
+                <b>000000</b>
+                <i>Task<br>number</i>
+              </span>
+              <span class="anatomy-part">
+                <b>COA</b>
+                <i>Document<br>type</i>
+              </span>
             </div>
-          </details>
+          </div>
         </div>
-      </form>
-    </div>
+      </details>
+    </form>
 
-    <!-- Instrument panel -->
-    <div class="panel">
-      <div class="panel-bar">
-        <span>Detector output</span>
-        <span>Representative · UV 214 nm</span>
-      </div>
-      <div class="trace-holder">
-        <canvas id="hero-trace" class="trace"
-                aria-label="Representative HPLC chromatogram: main peak at 6.42 minutes, 99.14 percent of integrated area, with four minor impurity peaks."></canvas>
-      </div>
-      <dl class="readout">
-        <div><dt>Detection</dt><dd data-cfg="method.detection">UV 214 nm · ESI(+) MS</dd></div>
-        <div><dt>Column</dt><dd data-cfg="method.column">C18, 2.6 µm, 100 × 4.6 mm</dd></div>
-        <div><dt>Mobile phase</dt><dd data-cfg="method.mobilePhase">0.1% TFA in H₂O / ACN, gradient</dd></div>
-        <div><dt>Flow / temp</dt><dd data-cfg="method.flow">1.0 mL/min, 30 °C</dd></div>
-      </dl>
+    <div class="cred">
+      <span><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> HPLC purity + LC-MS identity on every report</span>
+      <span><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> No vendor affiliations</span>
+      <span><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Certificates public by default</span>
     </div>
-
   </div>
 </section>
 
@@ -179,12 +153,27 @@
 <section class="band result-band" id="result">
   <div class="wrap band-inner">
     <div class="result-head">
-      <p class="eyebrow eyebrow-signal">Retrieved certificate</p>
+      <p class="eyebrow">Retrieved certificate</p>
       <p class="hint">Every field below is taken from the signed report. The PDF is the record of authority.</p>
     </div>
     <div id="result-out" tabindex="-1"></div>
   </div>
 </section>
+
+<!-- ============================================================ -->
+<!-- Figures                                                       -->
+<!-- ============================================================ -->
+
+<div class="strip">
+  <div class="wrap">
+    <div class="strip-inner">
+      <div class="stat"><b data-cfg="figures.turnaround">4–6</b><span>Business days, typical turnaround</span></div>
+      <div class="stat"><b data-cfg="figures.methodsPerCoa">HPLC + LC-MS</b><span>On every certificate, no exceptions</span></div>
+      <div class="stat"><b>2 mg</b><span>Minimum sample per analysis</span></div>
+      <div class="stat"><b>Public</b><span>Every report, searchable by anyone</span></div>
+    </div>
+  </div>
+</div>
 
 <!-- ============================================================ -->
 <!-- Methods                                                       -->
@@ -193,50 +182,56 @@
 <section class="band" id="methods">
   <div class="wrap band-inner">
     <p class="eyebrow">Analysis</p>
-    <h2 style="font-size:clamp(25px,3.6vw,36px);max-width:22ch;margin-top:14px">
-      Two measurements on every certificate.
-    </h2>
-    <p class="lede" style="margin-top:14px">
+    <h2 class="h2">Two measurements on every certificate.</h2>
+    <p class="sub">
       A purity figure with no identity confirmation answers half the question: it says the
       sample is clean, not that it is the compound on the label. We never issue one without
       the other.
     </p>
 
-    <div class="two-col">
-      <div class="panel method-card">
-        <p class="eyebrow eyebrow-signal">Measurement 01</p>
-        <h3>HPLC-UV — purity</h3>
-        <p>
-          Reversed-phase separation with ultraviolet detection at 214 nm, the wavelength at
-          which the peptide bond absorbs. Purity is reported as area percent of the total
-          integrated signal, to two decimal places.
-        </p>
-        <dl class="spec">
-          <div class="spec-row"><dt>Column</dt><dd>C18, 2.6 µm, 100 × 4.6 mm</dd></div>
-          <div class="spec-row"><dt>Mobile phase</dt><dd>A: 0.1% TFA / H₂O — B: ACN</dd></div>
-          <div class="spec-row"><dt>Gradient</dt><dd>5 → 65% B over 20 min</dd></div>
-          <div class="spec-row"><dt>Flow / temp</dt><dd>1.0 mL/min, 30 °C</dd></div>
-          <div class="spec-row"><dt>Detection</dt><dd>UV 214 nm</dd></div>
-          <div class="spec-row"><dt>Reported as</dt><dd>Area %, 2 dp</dd></div>
-        </dl>
+    <div class="cards">
+      <div class="card">
+        <div class="card-head">
+          <span class="chip">Measurement 01</span>
+          <h3>HPLC-UV — purity</h3>
+        </div>
+        <div class="card-body">
+          <p>
+            Reversed-phase separation with ultraviolet detection at 214 nm, the wavelength at
+            which the peptide bond absorbs. Purity is reported as area percent of the total
+            integrated signal, to two decimal places.
+          </p>
+          <dl class="spec">
+            <div><dt>Column</dt><dd data-cfg="method.column">C18, 2.6 µm, 100 × 4.6 mm</dd></div>
+            <div><dt>Mobile phase</dt><dd data-cfg="method.mobilePhase">0.1% TFA in H₂O / ACN, gradient</dd></div>
+            <div><dt>Gradient</dt><dd>5 → 65% B over 20 min</dd></div>
+            <div><dt>Flow / temp</dt><dd data-cfg="method.flow">1.0 mL/min, 30 °C</dd></div>
+            <div><dt>Detection</dt><dd>UV 214 nm</dd></div>
+            <div><dt>Reported as</dt><dd>Area %, 2 dp</dd></div>
+          </dl>
+        </div>
       </div>
 
-      <div class="panel method-card">
-        <p class="eyebrow eyebrow-signal">Measurement 02</p>
-        <h3>LC-MS — identity</h3>
-        <p>
-          Electrospray ionisation in positive mode. The observed mass-to-charge ratio is
-          matched against the theoretical mass of the named sequence, including the multiply
-          charged states expected from larger peptides.
-        </p>
-        <dl class="spec">
-          <div class="spec-row"><dt>Ionisation</dt><dd>ESI, positive mode</dd></div>
-          <div class="spec-row"><dt>Scan range</dt><dd>m/z 200 – 3000</dd></div>
-          <div class="spec-row"><dt>Confirmation</dt><dd>Observed vs. theoretical mass</dd></div>
-          <div class="spec-row"><dt>Charge states</dt><dd>[M+H]⁺, [M+2H]²⁺, [M+3H]³⁺</dd></div>
-          <div class="spec-row"><dt>Tolerance</dt><dd>± 0.5 Da</dd></div>
-          <div class="spec-row"><dt>Reported as</dt><dd>Confirmed / Not confirmed</dd></div>
-        </dl>
+      <div class="card">
+        <div class="card-head">
+          <span class="chip">Measurement 02</span>
+          <h3>LC-MS — identity</h3>
+        </div>
+        <div class="card-body">
+          <p>
+            Electrospray ionisation in positive mode. The observed mass-to-charge ratio is
+            matched against the theoretical mass of the named sequence, including the multiply
+            charged states expected from larger peptides.
+          </p>
+          <dl class="spec">
+            <div><dt>Ionisation</dt><dd>ESI, positive mode</dd></div>
+            <div><dt>Scan range</dt><dd>m/z 200 – 3000</dd></div>
+            <div><dt>Confirmation</dt><dd>Observed vs. theoretical mass</dd></div>
+            <div><dt>Charge states</dt><dd>[M+H]⁺, [M+2H]²⁺, [M+3H]³⁺</dd></div>
+            <div><dt>Tolerance</dt><dd>± 0.5 Da</dd></div>
+            <div><dt>Reported as</dt><dd>Confirmed / Not confirmed</dd></div>
+          </dl>
+        </div>
       </div>
     </div>
   </div>
@@ -246,72 +241,42 @@
 <!-- Process — a real sequence, so the numbering carries meaning   -->
 <!-- ============================================================ -->
 
-<section class="band" id="process">
+<section class="band band-alt" id="process">
   <div class="wrap band-inner">
-    <p class="eyebrow">From vial to public record</p>
-    <h2 style="font-size:clamp(25px,3.6vw,36px);max-width:24ch;margin-top:14px">
-      Four steps, one of which is out of our hands.
-    </h2>
+    <p class="eyebrow">From form to public record</p>
+    <h2 class="h2">Four steps, one of which is out of our hands.</h2>
 
-    <div class="process">
+    <div class="steps">
       <div class="step">
-        <span class="step-n">Step 01</span>
+        <i>01</i>
         <h4>Submit &amp; pay</h4>
         <p>Email your submission form with Email the Lab. If it is accepted you receive a
            payment link, and once paid, a confirmation number and receipt. Declined submissions
            are notified by email.</p>
       </div>
       <div class="step">
-        <span class="step-n">Step 02</span>
+        <i>02</i>
         <h4>Ship your vials</h4>
         <p>Ship by USPS with your receipt and confirmation number enclosed. When the vials
            arrive we log them and assign an accession number.</p>
       </div>
       <div class="step">
-        <span class="step-n">Step 03</span>
+        <i>03</i>
         <h4>Analysis &amp; review</h4>
         <p>Purity and identity are run from the same vial under the method above, and an
            analyst reviews the result before the certificate is released.</p>
       </div>
       <div class="step">
-        <span class="step-n">Step 04</span>
+        <i>04</i>
         <h4>Report issued</h4>
-        <p>The signed certificate is emailed to you and filed to this public index, where
+        <p>The signed certificate is emailed to you and filed to this public registry, where
            your own customers can verify it independently.</p>
       </div>
     </div>
 
-    <p class="hint mono" style="margin-top:14px">
+    <p class="hint mono" style="margin-top:18px">
       Typical turnaround: <span data-cfg="figures.turnaround">4–6</span> business days from when your vials arrive.
     </p>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- The public record                                             -->
-<!-- ============================================================ -->
-
-<section class="band">
-  <div class="wrap band-inner">
-    <p class="eyebrow">The public record</p>
-    <h2 style="font-size:clamp(25px,3.6vw,36px);max-width:26ch;margin-top:14px">
-      Nothing here has to be taken on trust.
-    </h2>
-    <p class="lede" style="margin-top:14px">
-      Certificates are public by default. A vendor can cite a batch; their customer can pull
-      the same report from this page and read the chromatogram themselves.
-    </p>
-
-    <div class="figures">
-      <div class="figure">
-        <b data-cfg="figures.turnaround">4–6</b>
-        <span>Business days, typical turnaround</span>
-      </div>
-      <div class="figure">
-        <b style="font-size:clamp(17px,2.4vw,22px)" data-cfg="figures.methodsPerCoa">HPLC + LC-MS</b>
-        <span>On every certificate, without exception</span>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -319,39 +284,22 @@
 <!-- Submit                                                        -->
 <!-- ============================================================ -->
 
-<section class="band" id="submit">
-  <div class="wrap band-inner submit-grid">
-    <div style="display:grid;gap:16px;align-content:start">
-      <p class="eyebrow">Submit samples</p>
-      <h2 style="font-size:clamp(23px,3.2vw,32px);max-width:20ch">
-        Send a vial. Get a certificate your customers can check.
-      </h2>
-      <p class="lede">
+<section class="cta" id="submit">
+  <div class="wrap cta-inner">
+    <div class="cta-copy">
+      <h2>Send a vial. Get a certificate your customers can check.</h2>
+      <p>
         Download the submission form, complete it, and send it to us with the Email the Lab
         button. All submission forms must be submitted by email. If your submission is accepted,
         you'll receive a payment link at the email address on your form; if it's declined, we'll
-        let you know by email. Once payment is complete
-        you'll receive a confirmation number and receipt: include both with your vials when you
-        ship. Sample requirement is 2 mg minimum, shipped at ambient temperature unless the
-        compound requires otherwise.
+        let you know by email. Once payment is complete you'll receive a confirmation number and
+        receipt: include both with your vials when you ship.
       </p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px">
-        <a class="btn btn-primary" href="assets/forms/VeriPure-Sample-Submission-Form.pdf" id="form-link" target="_blank" rel="noopener">Submission form (PDF)</a>
-        <a class="btn btn-ghost" href="#" id="mailto">Email the lab</a>
-      </div>
-      <p class="hint">Email the Lab opens a new email to the lab. Attach your completed form before sending.</p>
+      <p class="hint cta-hint">Email the Lab opens a new email to the lab. Attach your completed form before sending.</p>
     </div>
-
-    <div class="panel" style="padding:20px">
-      <p class="eyebrow">Shipping address</p>
-      <address class="addr" id="address" style="margin-top:10px">
-        VeriPure Labs<br>PO Box 16094<br>Plantation, FL 33318
-      </address>
-      <div class="contact-list">
-        <div class="contact-row"><span>Results</span><a href="#" id="mailto2" data-cfg="email">results@example-lab.com</a></div>
-        <div class="contact-row"><span>Turnaround</span><span style="color:var(--ink);text-transform:none;letter-spacing:0;font-size:12.5px"><span data-cfg="figures.turnaround">4–6</span> business days</span></div>
-        <div class="contact-row"><span>Sample minimum</span><span style="color:var(--ink);text-transform:none;letter-spacing:0;font-size:12.5px">2 mg</span></div>
-      </div>
+    <div class="cta-act">
+      <a class="btn btn-primary" href="assets/forms/VeriPure-Sample-Submission-Form.pdf" id="form-link" target="_blank" rel="noopener">Submission form (PDF)</a>
+      <a class="btn btn-light" href="#" id="mailto">Email the lab</a>
     </div>
   </div>
 </section>
@@ -362,9 +310,15 @@
 
 <footer class="foot">
   <div class="wrap foot-inner">
-    <div class="foot-quality" id="quality">
-      <span class="chip">Quality management aligned to ISO 9001 principles</span>
-      <span class="chip">Good Laboratory Practice (GLP) principles</span>
+    <div class="foot-top">
+      <div class="foot-quality" id="quality">
+        <span class="chip">Quality management aligned to ISO 9001 principles</span>
+        <span class="chip">Good Laboratory Practice (GLP) principles</span>
+      </div>
+      <div class="contact-list">
+        <div class="contact-row"><span>Results</span><a href="#" id="mailto2" data-cfg="email">results@veripurelabs.com</a></div>
+        <div class="contact-row"><span>Shipping</span><address class="addr" id="address">VeriPure Labs<br>PO Box 16094<br>Plantation, FL 33318</address></div>
+      </div>
     </div>
     <p class="disclaimer">
       All testing and all reports published here are for research use only. Materials
@@ -381,8 +335,8 @@
   </div>
 </footer>
 
-<script src="config.js?v=10"></script>
-<script src="assets/app.js?v=10"></script>
+<script src="config.js?v=11"></script>
+<script src="assets/app.js?v=11"></script>
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
   var m2 = document.getElementById("mailto2");
