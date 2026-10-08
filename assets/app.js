@@ -1,5 +1,5 @@
 /* ==================================================================
-   COA registry — lookup + chromatogram rendering
+   COA registry â lookup + chromatogram rendering
    No dependencies. Everything configurable lives in config.js.
    ================================================================== */
 
@@ -235,6 +235,17 @@
     return null;
   }
 
+  // Lots are the primary key people search by. They are not guaranteed unique
+  // across companies, so this returns every match and the caller decides.
+  function findByLot(lot) {
+    if (!INDEX) return null;
+    var q = normalizeCode(lot);
+    if (!q) return [];
+    return INDEX.records.filter(function (r) {
+      return normalizeCode(r.lot) === q;
+    });
+  }
+
   function findByCompany(name) {
     if (!INDEX) return null;
     var q = String(name || "").trim().toLowerCase();
@@ -296,7 +307,7 @@
     var assay = "";
     if (purity !== null) {
       var clamped = Math.max(0, Math.min(100, purity));
-      // Meter reads 95–100%, where peptide purity decisions are actually made
+      // Meter reads 95â100%, where peptide purity decisions are actually made
       var floor = 95;
       var pct = Math.max(0, (clamped - floor) / (100 - floor)) * 100;
       var tick = ((98 - floor) / (100 - floor)) * 100;
@@ -334,7 +345,7 @@
     } else {
       actions =
         '<span class="btn btn-primary" aria-disabled="true">View COA</span>' +
-        '<span class="hint">PDF location not set yet — add your bucket URL to <span class="mono">config.js</span></span>';
+        '<span class="hint">PDF location not set yet â add your bucket URL to <span class="mono">config.js</span></span>';
     }
 
     out.innerHTML =
@@ -342,8 +353,8 @@
         '<div class="cert-top">' +
           '<div class="cert-title">' +
             "<h3>" + esc(rec.compound || "Certificate of Analysis") + "</h3>" +
-            '<div class="cert-sub">' + esc(rec.methods || "HPLC-UV · LC-MS") +
-              (rec.rt ? " · RT " + rec.rt.toFixed(2) + " min" : "") + "</div>" +
+            '<div class="cert-sub">' + esc(rec.methods || "HPLC-UV Â· LC-MS") +
+              (rec.rt ? " Â· RT " + rec.rt.toFixed(2) + " min" : "") + "</div>" +
           "</div>" +
           '<div class="pills">' + pills + "</div>" +
         "</div>" +
@@ -363,7 +374,7 @@
     renderCertificate({
       code: code,
       compound: "Certificate of Analysis",
-      methods: "HPLC-UV · LC-MS",
+      methods: "HPLC-UV Â· LC-MS",
       company: null,
       file: code + ".pdf"
     });
@@ -378,12 +389,12 @@
 
     var rows = list.map(function (r) {
       var url = pdfUrlFor(r);
-      var purity = typeof r.purity === "number" ? r.purity.toFixed(2) + "%" : "—";
+      var purity = typeof r.purity === "number" ? r.purity.toFixed(2) + "%" : "â";
       var meta = [
         single ? "" : esc(r.company || ""),
-        r.lot ? "Lot " + esc(r.lot) : "",
+        r.code ? "Report " + esc(r.code) : "",
         r.reported ? "Issued " + esc(fmtDate(r.reported)) : ""
-      ].filter(Boolean).join(" · ");
+      ].filter(Boolean).join(" Â· ");
 
       return '<div class="hit" data-code="' + esc(r.code) + '">' +
         '<div class="hit-main">' +
@@ -392,11 +403,11 @@
         "</div>" +
         '<div class="hit-stat"><span class="hit-label">Purity (HPLC)</span>' +
           '<span class="hit-purity">' + purity + "</span></div>" +
-        '<div class="hit-stat"><span class="hit-label">Report no.</span>' +
-          '<span class="hit-code">' + esc(r.code) + "</span></div>" +
+        '<div class="hit-stat"><span class="hit-label">Lot / batch</span>' +
+          '<span class="hit-code">' + esc(r.lot || "—") + "</span></div>" +
         '<div class="hit-actions">' +
           '<button class="btn btn-primary btn-sm hit-open" type="button">' +
-            'View certificate <span aria-hidden="true">→</span></button>' +
+            'View certificate <span aria-hidden="true">â</span></button>' +
           (url ? '<a class="btn btn-ghost btn-sm hit-pdf" href="' + esc(url) +
             '" target="_blank" rel="noopener" aria-label="Open PDF for ' + esc(r.code) + '">PDF</a>' : "") +
         "</div>" +
@@ -404,7 +415,7 @@
     }).join("");
 
     var count = list.length + (list.length === 1 ? " certificate" : " certificates") +
-      " matching “" + esc(query) + "”";
+      " matching â" + esc(query) + "â";
 
     out.innerHTML =
       '<div class="panel cert">' +
@@ -466,7 +477,7 @@
       var u = new URL(window.location.href);
       u.searchParams.set("coa", code);
       history.replaceState(null, "", u);
-    } catch (e) { /* sandboxed frame — deep link simply not updated */ }
+    } catch (e) { /* sandboxed frame â deep link simply not updated */ }
   }
 
   /* ----------------------------------------------------------------
@@ -484,7 +495,7 @@
       if (hits === null) {
         renderNotice("Company search unavailable",
           "Company-name search reads the public index, which did not load. " +
-          "Search by report number instead — it works without the index.");
+          "Search by report number instead â it works without the index.");
         focusResult();
         return;
       }
@@ -507,12 +518,27 @@
 
     var code = normalizeCode(raw);
     if (!code) {
-      fieldMessage("Enter the Report Number from your certificate, for example " +
-        "VPL-000000-COA. The Task Number alone also works.");
+      fieldMessage("Enter the Lot / Batch number from your vial label or certificate, " +
+        "for example RT10-092523-01. A report number also works.");
       input.focus();
       return;
     }
 
+    // Lot first, since that is what the vial label carries
+    var lots = findByLot(code);
+    if (lots && lots.length === 1) {
+      renderCertificate(lots[0]);
+      setDeepLink(lots[0].code);
+      focusResult();
+      return;
+    }
+    if (lots && lots.length > 1) {
+      renderHits(lots, raw.trim());
+      focusResult();
+      return;
+    }
+
+    // Report and task numbers still resolve, so existing links keep working
     var rec = findByCode(code);
     if (rec) {
       renderCertificate(rec);
@@ -529,8 +555,8 @@
 
     renderNotice("No certificate found",
       "Nothing matches <span class=\"mono\">" + esc(code) + "</span>. " +
-      "Copy the Report Number exactly as printed on your certificate, for example " +
-      "VPL-000000-COA, or enter just the Task Number. " +
+      "Copy the Lot / Batch number exactly as printed on your vial label or in the " +
+      "Sample Information table of your certificate. A report number also works. " +
       "If it still does not resolve, email " +
       '<a href="mailto:' + esc(CFG.email || "") + '">' + esc(CFG.email || "the lab") + "</a>.");
     focusResult();
@@ -538,7 +564,7 @@
 
   function verifyDirect(code) {
     var url = CFG.pdfBase + code + ".pdf";
-    renderNotice("Checking the archive…",
+    renderNotice("Checking the archiveâ¦",
       "Looking up <span class=\"mono\">" + esc(code) + "</span>.", "ok");
     fetch(url, { method: "HEAD" }).then(function (res) {
       if (res.ok) { renderDirect(code); }
@@ -549,7 +575,7 @@
       }
       focusResult();
     }).catch(function () {
-      // CORS or network — the file may well exist, so offer it rather than deny it
+      // CORS or network â the file may well exist, so offer it rather than deny it
       renderDirect(code);
       focusResult();
     });
@@ -641,7 +667,7 @@
     window.addEventListener("scroll", onScroll, { passive: true });
 
     /* The wordmark means "back to the top of the page", not "jump to the
-       hero's anchor offset" — which would land inside the band above. */
+       hero's anchor offset" â which would land inside the band above. */
     var mark = document.querySelector(".wordmark");
     if (mark) {
       mark.addEventListener("click", function (ev) {
@@ -706,8 +732,8 @@
       input.setAttribute("aria-label", "Company name");
       input.style.letterSpacing = "normal";
     } else {
-      input.placeholder = "VPL-000000-COA";
-      input.setAttribute("aria-label", "Report number or task number");
+      input.placeholder = "RT10-092523-01";
+      input.setAttribute("aria-label", "Lot or batch number");
       input.style.letterSpacing = "";
     }
     input.value = "";
@@ -752,7 +778,10 @@
 
     // Load the index, then honour any ?coa= deep link
     var wanted = null;
-    try { wanted = new URL(window.location.href).searchParams.get("coa"); } catch (e) {}
+    try {
+      var sp = new URL(window.location.href).searchParams;
+      wanted = sp.get("coa") || sp.get("lot");
+    } catch (e) {}
 
     if (CFG.mode === "direct") { setIndexStatus(null); afterIndex(wanted); return; }
 
