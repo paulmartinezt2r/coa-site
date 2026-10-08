@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <!-- ?v= is a cache buster: bump it whenever styles.css, app.js or config.js
      changes, or returning visitors keep the stale copy for up to 10 minutes -->
-<link rel="stylesheet" href="assets/styles.css?v=12">
+<link rel="stylesheet" href="assets/styles.css?v=13">
 </head>
 <body>
 
@@ -102,7 +102,7 @@
 
       <div class="field">
         <input id="q" type="text" inputmode="text" spellcheck="false"
-               placeholder="RT10-092523-01"
+               placeholder="VD-RT10-2610"
                aria-label="Lot or batch number">
         <button class="btn btn-primary" type="button" id="lookup-btn">Look up</button>
       </div>
@@ -121,16 +121,16 @@
             <p class="eyebrow" style="margin-bottom:10px">Anatomy of a lot number</p>
             <div class="anatomy-code">
               <span class="anatomy-part">
+                <b>VD</b>
+                <i>Client<br>prefix</i>
+              </span>
+              <span class="anatomy-part">
                 <b>RT10</b>
                 <i>Compound<br>and strength</i>
               </span>
               <span class="anatomy-part">
-                <b>092523</b>
-                <i>Batch<br>date</i>
-              </span>
-              <span class="anatomy-part">
-                <b>01</b>
-                <i>Batch<br>number</i>
+                <b>2610</b>
+                <i>Year and<br>month</i>
               </span>
             </div>
           </div>
@@ -335,8 +335,8 @@
   </div>
 </footer>
 
-<script src="config.js?v=12"></script>
-<script src="assets/app.js?v=12"></script>
+<script src="config.js?v=13"></script>
+<script src="assets/app.js?v=13"></script>
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
   var m2 = document.getElementById("mailto2");

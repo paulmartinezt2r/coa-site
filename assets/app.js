@@ -226,11 +226,11 @@
 
   function findByCode(code) {
     if (!INDEX) return null;
-    var digitsOnly = /^\d+$/.test(code);
     for (var i = 0; i < INDEX.records.length; i++) {
       var r = INDEX.records[i];
       if (normalizeCode(r.code) === code) return r;
-      if (digitsOnly && normalizeCode(r.accession) === code) return r;
+      // Task numbers carry a prefix (TSK-24817), so compare them in full too
+      if (r.accession && normalizeCode(r.accession) === code) return r;
     }
     return null;
   }
@@ -519,7 +519,7 @@
     var code = normalizeCode(raw);
     if (!code) {
       fieldMessage("Enter the Lot / Batch number from your vial label or certificate, " +
-        "for example RT10-092523-01. A report number also works.");
+        "for example VD-RT10-2610. A report number also works.");
       input.focus();
       return;
     }
@@ -732,7 +732,7 @@
       input.setAttribute("aria-label", "Company name");
       input.style.letterSpacing = "normal";
     } else {
-      input.placeholder = "RT10-092523-01";
+      input.placeholder = "VD-RT10-2610";
       input.setAttribute("aria-label", "Lot or batch number");
       input.style.letterSpacing = "";
     }
