@@ -12,13 +12,6 @@ window.COA_CONFIG = {
   labName: "VeriPure Labs",
   labShort: "VeriPure",
 
-  // CHANGE ME
-  location: "Plantation, Florida",
-  address: [
-    "VeriPure Labs",
-    "PO Box 16094",
-    "Plantation, FL 33318"
-  ],
   email: "results@veripurelabs.com",
   phone: "",
 

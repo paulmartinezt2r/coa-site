@@ -811,7 +811,6 @@ canvas.trace { display: block; width: 100%; height: auto; }
 }
 .contact-row a { color: var(--accent-3); text-decoration: none; }
 .contact-row a:hover { text-decoration: underline; }
-.addr { font-style: normal; text-align: right; line-height: 1.7; color: #D6CCBC; }
 
 .disclaimer { font-size: 12.5px; line-height: 1.65; color: #8A7F6D; max-width: 92ch; }
 

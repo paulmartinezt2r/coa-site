@@ -593,9 +593,6 @@
       if (v != null && v !== "") el.textContent = v;
     });
 
-    var addr = $("#address");
-    if (addr && CFG.address) addr.innerHTML = CFG.address.map(esc).join("<br>");
-
     // Submission forms are accepted by email only. A mailto link cannot attach
     // the PDF, so the prefilled body reminds the sender to attach it.
     var mail = $("#mailto");
