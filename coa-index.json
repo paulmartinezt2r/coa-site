@@ -1,6 +1,6 @@
 {
   "_comment": "Public COA index. Every record here is searchable on the site, by lot/batch first, then report or task number, then company name. Required per record: code, company, compound. Everything else is optional and simply omitted from the result card if absent - in particular, a chromatogram is only drawn when 'rt' is present. 'file' defaults to <code>.pdf inside config.pdfBase. For blends the laboratory reports a purity per component; 'purity' here carries the lowest of them, and the PDF carries the per-component detail.",
-  "updated": "2026-10-08",
+  "updated": "2026-11-09",
   "records": [
     {
       "code": "VPL-261008-0142",
@@ -241,6 +241,19 @@
       "identity": "Confirmed",
       "methods": "HPLC-UV 214 nm · LC-MS ESI(+)",
       "file": "VPL-219777-COA.pdf"
+    },
+    {
+      "code": "VPL-86857-2032",
+      "accession": "TSK-86857",
+      "company": "Life Force Science PR",
+      "compound": "Tesamorelin 10mg",
+      "lot": "VD-TS10-4885",
+      "reported": "2026-11-09",
+      "purity": 99.3,
+      "identity": "Conforms",
+      "methods": "HPLC-UV 214 nm · LC-MS ESI(+)",
+      "file": "VPL-86857-2032.pdf"
     }
+
   ]
 }
